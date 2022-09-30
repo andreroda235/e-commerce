@@ -1,0 +1,47 @@
+.carousel {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.overlay-btns {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: transparent;
+}
+
+.inner {
+    white-space: nowrap;
+    transition: transform 0.3s;
+    height: fit-content;
+    /* width: 300px */
+}
+
+.carousel-item {
+    height: fit-content;
+    width: 100%;
+    /* padding: 2rem; */
+   /*  padding-left: 2rem;
+    padding-right: 2rem; */
+    background-color: transparent;
+    /* background-color: black;  */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.outer {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
