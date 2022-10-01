@@ -10,6 +10,15 @@ export const CarouselItem = ({ children }) => {
     );
 };
 
+
+/* 
+  TODO:
+    -option between seamless looping or snapping back.
+    -automatically calculate children size.
+    -refactor to useReducer
+      -if useReducer doens't fix button spam problem
+      then consider adding timer option to buttons
+*/
 const Carousel = ({
   children,
   dataSize,
@@ -21,13 +30,14 @@ const Carousel = ({
 }) => {
   const [pos, setPos] = useState(0);
   const [rewind, setRewind] = useState(false);
+
   const childrenArray = useRef(React.Children.toArray(children));
   const n_items = visibleItems && visibleItems > 0 && 
                 (dataSize - visibleItems) >= 0 
                 ? visibleItems 
                 : 1;
   const steps = dataSize - n_items + 1;
-  
+
   if(childrenArray.current.length !== steps + 1)
     childrenArray.current.push(childrenArray.current[0]);
 
@@ -36,7 +46,7 @@ const Carousel = ({
       setRewind(false);
       setPos(rewind === 0 ? 1 : steps - 1);
     }
-  },[rewind]);
+  },[rewind, steps]);
   
   const next = () => {
     setPos((prevValue) => {
@@ -51,8 +61,8 @@ const Carousel = ({
   const previous = () => {
     setPos((prevValue) => {
       if(prevValue !== 0)
-        return (prevValue % -steps) - 1;
-      
+        return (prevValue % - steps) - 1;
+
       setRewind(steps);
       return prevValue;
     });
@@ -98,7 +108,6 @@ const Carousel = ({
     width  : `${itemWidth}px`,
   };
 
-  console.log(slider);
 
   return (
     <div className={classes.outer}>
