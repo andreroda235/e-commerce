@@ -21,15 +21,13 @@ const Carousel = ({
 }) => {
   const [pos, setPos] = useState(0);
   const [rewind, setRewind] = useState(false);
-
   const childrenArray = useRef(React.Children.toArray(children));
-
   const n_items = visibleItems && visibleItems > 0 && 
                 (dataSize - visibleItems) >= 0 
                 ? visibleItems 
                 : 1;
-
   const steps = dataSize - n_items + 1;
+  
   if(childrenArray.current.length !== steps + 1)
     childrenArray.current.push(childrenArray.current[0]);
 
@@ -90,7 +88,6 @@ const Carousel = ({
   };
 
   if(rewind !== false){
-    console.log('here! ' + rewind);
     transform = {
       transform   : `translateX(${-rewind}00%)`
     };
