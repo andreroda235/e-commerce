@@ -12,7 +12,7 @@ const items = [
 const HomePage = () => {
 
     return(
-        <div className="center" style={{width: '100%', height: 'fit-content'}}>
+        <div  style={{width: '100%', height: '100%'}}>
             <Carousel
                 elements={items}
                 dataSize={items.length}
@@ -23,7 +23,7 @@ const HomePage = () => {
                 >
                 {items.map((item, index) => (
                     <CarouselItem>
-                        <div style={{
+                        <div className="center" style={{
                             width: '1500px', height: '600px', 
                             backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) ${(230/600) * 100}%, rgba(255,255,255,1)), url(${item})`
                         }}/>

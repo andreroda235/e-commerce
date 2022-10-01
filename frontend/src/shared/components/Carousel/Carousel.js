@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import classes from "./Carousel.module.css";
 
@@ -20,23 +20,44 @@ const Carousel = ({
   groupArrowHeight,
 }) => {
   const [pos, setPos] = useState(0);
+  const [rewind, setRewind] = useState(false);
 
-  const n_items = visibleItems && 
-                visibleItems > 0 && 
+  const childrenArray = useRef(React.Children.toArray(children));
+
+  const n_items = visibleItems && visibleItems > 0 && 
                 (dataSize - visibleItems) >= 0 
-                ? visibleItems : 1;
+                ? visibleItems 
+                : 1;
 
   const steps = dataSize - n_items + 1;
+  if(childrenArray.current.length !== steps + 1)
+    childrenArray.current.push(childrenArray.current[0]);
 
+  useEffect(() => {
+    if(rewind !== false){
+      setRewind(false);
+      setPos(rewind === 0 ? 1 : steps - 1);
+    }
+  },[rewind]);
+  
   const next = () => {
-    setPos((prevValue) => 
-        prevValue === steps - 1 ? 0 : (prevValue % steps) + 1
-    );
+    setPos((prevValue) => {
+        if( prevValue !== steps)
+            return (prevValue % steps) + 1;
+
+        setRewind(0);
+        return prevValue;
+    });
   };
+
   const previous = () => {
-    setPos((prevValue) => 
-        prevValue === 0 ? steps - 1 : (prevValue % -steps) - 1
-    );
+    setPos((prevValue) => {
+      if(prevValue !== 0)
+        return (prevValue % -steps) - 1;
+      
+      setRewind(steps);
+      return prevValue;
+    });
   };
 
   let arrowDivPos = {};
@@ -63,17 +84,31 @@ const Carousel = ({
     height  :   height ? height + "px" : "fit-content",
   };
 
-  const slider = {
-    transform   : `translateX(-${pos}00%)`,
-    width       : `${itemWidth}px`,
+  let transform = {
+    transition  : 'transform 0.3s',
+    transform   : `translateX(${-pos}00%)`
   };
+
+  if(rewind !== false){
+    console.log('here! ' + rewind);
+    transform = {
+      transform   : `translateX(${-rewind}00%)`
+    };
+  }
+
+  const slider = {
+    ...transform,
+    width  : `${itemWidth}px`,
+  };
+
+  console.log(slider);
 
   return (
     <div className={classes.outer}>
         <div className={classes.carousel} style={visibleArea}>
             <div className={classes.inner} style={slider}>
-                {React.Children.map(children, (child) => {
-                    return React.cloneElement(child, { width: "100%" });
+                {childrenArray.current.map((child) => {
+                  return React.cloneElement(child, { width: "100%" }); 
                 })}
             </div>
             {buttons}
