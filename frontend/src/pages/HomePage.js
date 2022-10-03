@@ -1,4 +1,5 @@
 import Carousel, { CarouselItem } from "../shared/components/Carousel/Carousel";
+import CustomButton from "../shared/components/UIElements/Buttons/CustomButton";
 
 const items = [
     'https://grazia.wwmindia.com/content/2018/oct/bodyc-rae1539588422.jpg',
@@ -16,8 +17,6 @@ const HomePage = () => {
             <Carousel
                 elements={items}
                 dataSize={items.length}
-                itemWidth={1500}
-                visibleItems={1}
                 groupArrowPos="top"
                 groupArrowHeight={230}
                 >
@@ -30,6 +29,7 @@ const HomePage = () => {
                     </CarouselItem>
                 ))}
             </Carousel>
+            <CustomButton/>
         </div>
     );
 };

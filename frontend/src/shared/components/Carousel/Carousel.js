@@ -1,71 +1,128 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { cloneElement, createRef, useEffect, useReducer, useRef, useState } from "react";
+import CustomButton from "../UIElements/Buttons/CustomButton";
 
 import classes from "./Carousel.module.css";
 
-export const CarouselItem = ({ children }) => {
-    return (
-        <div className={classes["carousel-item"]}>
-            {children}
-        </div>
-    );
-};
+export const CarouselItem = React.forwardRef(({ children}, ref) => {
+  return (
+      <div className={classes["carousel-item"]} ref={ ref ? ref : null}>
+          {children}
+      </div>
+  );
+});
 
 
 /* 
   TODO:
-    -option between seamless looping or snapping back.
-    -automatically calculate children size.
+    -adding spacing between items => itemSize + margin
+    -option between seamless looping or snapping back. DONE
+      -check seamless transition when visibileItems > 1.
+    -automatically calculate children size. DONE
     -refactor to useReducer
       -if useReducer doens't fix button spam problem
       then consider adding timer option to buttons
 */
+
+const initialState = {
+  pos     : 0,
+  rewind  : false
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'next': {
+      if(state.pos !== action.steps - 1){
+        return {
+          ...state,
+          pos: (state.pos % action.steps) + 1
+        };
+      }
+      return {
+        ...state,
+        rewind: 0
+      };
+    }
+    case 's_next': {
+      return {
+        pos: state.pos === action.steps - 1 ? 0 : (state.pos % action.steps) + 1
+      }
+    }
+    case 'previous':{
+      if(state.pos !== 0)
+          return {
+            ...state,
+            pos: (state.pos % -action.steps) - 1
+          };
+      return {
+        ...state,
+        rewind: action.steps - 1 
+      };
+    }
+    case 's_previous': {
+      return {
+        pos: state.pos === 0 ? action.steps - 1 : (state.pos % -action.steps) - 1
+      }
+    }
+    case 0:{
+      return {
+        rewind: false,
+        pos: state.rewind === 0 ? 1 : action.steps - 2
+      };
+    }
+    default:
+      return state;
+  }
+}
+
 const Carousel = ({
   children,
   dataSize,
   visibleItems,
-  itemWidth,
+  width,
   height,
   groupArrowPos,
   groupArrowHeight,
+  snapBack
 }) => {
-  const [pos, setPos] = useState(0);
-  const [rewind, setRewind] = useState(false);
 
-  const childrenArray = useRef(React.Children.toArray(children));
-  const n_items = visibleItems && visibleItems > 0 && 
-                (dataSize - visibleItems) >= 0 
-                ? visibleItems 
-                : 1;
-  const steps = dataSize - n_items + 1;
+  const [state, dispatch]         = useReducer(reducer, initialState);
+  const childrenArray             = useRef(React.Children.toArray(children));
+  const sampleRef                 = createRef();
+  const [itemWidth, setItemWidth] = useState(width);
+  const steps                     = snapBack ? dataSize : dataSize + 1;
+  const n_items                   = visibleItems && visibleItems > 0 && 
+                                    (dataSize - visibleItems) >= 0 
+                                    ? visibleItems 
+                                    : 1;
 
-  if(childrenArray.current.length !== steps + 1)
-    childrenArray.current.push(childrenArray.current[0]);
+  if(childrenArray.current.length !== dataSize + 1 && !snapBack){
+    childrenArray.current.push(cloneElement(childrenArray.current[0], 
+    {width: '100%', key: '.' + dataSize}));
+  };
 
   useEffect(() => {
-    if(rewind !== false){
-      setRewind(false);
-      setPos(rewind === 0 ? 1 : steps - 1);
+    if(!itemWidth){
+      let width = sampleRef.current.children[0].style.width;
+      width = parseFloat(width.replace(/px/i, ''));
+      setItemWidth(width);
     }
-  },[rewind, steps]);
+  }, [sampleRef, itemWidth]);
+
+  useEffect(() => {  
+    if(!snapBack && state.rewind !== false)
+      dispatch({type: 0, steps});
+  }, [state.rewind, steps, snapBack]);
   
   const next = () => {
-    setPos((prevValue) => {
-        if( prevValue !== steps)
-            return (prevValue % steps) + 1;
-
-        setRewind(0);
-        return prevValue;
-    });
+    if(snapBack)
+      return dispatch({type: 's_next', steps});
+    dispatch({type: 'next', steps});
   };
 
   const previous = () => {
-    setPos((prevValue) => {
-      if(prevValue !== 0)
-        return (prevValue % - steps) - 1;
-
-      setRewind(steps);
-      return prevValue;
-    });
+    if(snapBack)
+      return dispatch({type: 's_previous', steps});
+    dispatch({type: 'previous', steps});
   };
 
   let arrowDivPos = {};
@@ -82,30 +139,32 @@ const Carousel = ({
 
   const buttons = (
     <div className={classes["overlay-btns"]} style={arrowDivStyle}>
-      <button onClick={previous}>{"<"}</button>
-      <button onClick={next}>{">"}</button>
+      {/* <button onClick={previous}>{"<"}</button>
+      <button onClick={next}>{">"}</button> */}
+      <CustomButton inverted height="100%" onClick={previous}/>
+      <CustomButton height = "100%" onClick={next}/>
     </div>
   );
 
   const visibleArea = {
-    width   :   visibleItems ? `${visibleItems * itemWidth}px` : '100%',
+    width   :   itemWidth ? `${n_items * itemWidth}px` : '100%',
     height  :   height ? height + "px" : "fit-content",
   };
 
   let transform = {
     transition  : 'transform 0.3s',
-    transform   : `translateX(${-pos}00%)`
+    transform   : `translateX(${-state.pos}00%)`
   };
 
-  if(rewind !== false){
+  if(!snapBack && state.rewind !== false){
     transform = {
-      transform   : `translateX(${-rewind}00%)`
+      transform  : `translateX(${-state.rewind}00%)`
     };
   }
 
   const slider = {
     ...transform,
-    width  : `${itemWidth}px`,
+    width  : itemWidth ? `${itemWidth}px` : '100%',
   };
 
 
@@ -113,8 +172,10 @@ const Carousel = ({
     <div className={classes.outer}>
         <div className={classes.carousel} style={visibleArea}>
             <div className={classes.inner} style={slider}>
-                {childrenArray.current.map((child) => {
-                  return React.cloneElement(child, { width: "100%" }); 
+                {childrenArray.current.map((child, index) => {
+                  if(index === 0)
+                    return React.cloneElement(child, {width: "100%", ref: sampleRef}); 
+                  return React.cloneElement(child, {width: "100%"}); 
                 })}
             </div>
             {buttons}

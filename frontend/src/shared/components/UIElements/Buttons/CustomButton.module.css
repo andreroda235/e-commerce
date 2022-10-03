@@ -1,0 +1,20 @@
+
+.arrow-button {
+    background-color: transparent;
+    border: none;
+}
+
+.arrow-button img {
+    width: 70px;
+    height: 70px;
+}
+
+.arrow-button:hover {
+    cursor: pointer;
+}
+
+.arrow-button:active,
+.arrow-button:focus {
+    border-radius: 5px;
+    border: 5px solid /* var(--darkerHighlight) */ var(--highlightColor);
+}
