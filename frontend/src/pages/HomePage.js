@@ -19,6 +19,7 @@ const HomePage = () => {
                 dataSize={items.length}
                 groupArrowPos="top"
                 groupArrowHeight={230}
+                snapBack
                 >
                 {items.map((item, index) => (
                     <CarouselItem>

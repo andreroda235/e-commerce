@@ -14,11 +14,11 @@ export const CarouselItem = React.forwardRef(({ children}, ref) => {
 
 /* 
   TODO:
-    -adding spacing between items => itemSize + margin
+    -adding spacing between items => itemSize + margin. DONE
     -option between seamless looping or snapping back. DONE
       -check seamless transition when visibileItems > 1.
     -automatically calculate children size. DONE
-    -refactor to useReducer
+    -refactor to useReducer. DONE
       -if useReducer doens't fix button spam problem
       then consider adding timer option to buttons
 */
@@ -31,37 +31,25 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case 'next': {
-      if(state.pos !== action.steps - 1){
+      if(state.pos !== action.steps - 1)
         return {
           ...state,
           pos: (state.pos % action.steps) + 1
         };
-      }
-      return {
-        ...state,
-        rewind: 0
-      };
-    }
-    case 's_next': {
-      return {
-        pos: state.pos === action.steps - 1 ? 0 : (state.pos % action.steps) + 1
-      }
+      
+      if(action.snapBack)
+        return {...state, pos: 0};
+      return {...state, rewind: 0};
     }
     case 'previous':{
       if(state.pos !== 0)
-          return {
+        return {
             ...state,
             pos: (state.pos % -action.steps) - 1
           };
-      return {
-        ...state,
-        rewind: action.steps - 1 
-      };
-    }
-    case 's_previous': {
-      return {
-        pos: state.pos === 0 ? action.steps - 1 : (state.pos % -action.steps) - 1
-      }
+      if(action.snapBack)
+        return {...state, pos: action.steps - 1};
+      return {...state, rewind: action.steps - 1};
     }
     case 0:{
       return {
@@ -80,15 +68,17 @@ const Carousel = ({
   visibleItems,
   width,
   height,
+  spacing,
   groupArrowPos,
   groupArrowHeight,
   snapBack
 }) => {
 
   const [state, dispatch]         = useReducer(reducer, initialState);
+  const [itemWidth, setItemWidth] = useState(width);
   const childrenArray             = useRef(React.Children.toArray(children));
   const sampleRef                 = createRef();
-  const [itemWidth, setItemWidth] = useState(width);
+  const space                     = spacing ? spacing : 0;
   const steps                     = snapBack ? dataSize : dataSize + 1;
   const n_items                   = visibleItems && visibleItems > 0 && 
                                     (dataSize - visibleItems) >= 0 
@@ -114,15 +104,11 @@ const Carousel = ({
   }, [state.rewind, steps, snapBack]);
   
   const next = () => {
-    if(snapBack)
-      return dispatch({type: 's_next', steps});
-    dispatch({type: 'next', steps});
+    dispatch({type: 'next', steps, snapBack});
   };
 
   const previous = () => {
-    if(snapBack)
-      return dispatch({type: 's_previous', steps});
-    dispatch({type: 'previous', steps});
+    dispatch({type: 'previous', steps, snapBack});
   };
 
   let arrowDivPos = {};
@@ -139,15 +125,13 @@ const Carousel = ({
 
   const buttons = (
     <div className={classes["overlay-btns"]} style={arrowDivStyle}>
-      {/* <button onClick={previous}>{"<"}</button>
-      <button onClick={next}>{">"}</button> */}
       <CustomButton inverted height="100%" onClick={previous}/>
       <CustomButton height = "100%" onClick={next}/>
     </div>
   );
 
   const visibleArea = {
-    width   :   itemWidth ? `${n_items * itemWidth}px` : '100%',
+    width   :   itemWidth ? `${n_items * itemWidth + space}px` : '100%',
     height  :   height ? height + "px" : "fit-content",
   };
 
@@ -164,7 +148,7 @@ const Carousel = ({
 
   const slider = {
     ...transform,
-    width  : itemWidth ? `${itemWidth}px` : '100%',
+    width  : itemWidth ? `${itemWidth + space}px` : '100%',
   };
 
 
