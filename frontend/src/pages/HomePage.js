@@ -13,24 +13,28 @@ const items = [
 const HomePage = () => {
 
     return(
-        <div  style={{width: '100%', height: '100%'}}>
-            <Carousel
-                elements={items}
-                dataSize={items.length}
-                groupArrowPos="top"
-                groupArrowHeight={230}
-                snapBack
-                >
-                {items.map((item, index) => (
-                    <CarouselItem>
-                        <div className="center" style={{
-                            width: '1500px', height: '600px', 
-                            backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) ${(230/600) * 100}%, rgba(255,255,255,1)), url(${item})`
-                        }}/>
-                    </CarouselItem>
-                ))}
-            </Carousel>
-            <CustomButton/>
+        <div className="page">
+            <div style={{maxWidth: '1500px', position: 'relative'}}>
+                <Carousel
+                    elements={items}
+                    dataSize={items.length}
+                    groupArrowPos="top"
+                    groupArrowHeight={230}
+                    snapBack
+                    >
+                    {items.map((item, index) => (
+                        <CarouselItem>
+                            <div className="center" style={{
+                                width: '1500px', height: '600px', 
+                                backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) ${(230/600) * 100}%, rgba(255,255,255,1)), url(${item})`
+                            }}/>
+                        </CarouselItem>
+                    ))}
+                </Carousel>
+                <div style={{width: '100%', height: '2000px', position: 'absolute', backgroundColor: 'red', top: '300px'}}>
+                    <text>category list</text>
+                </div>
+            </div>
         </div>
     );
 };

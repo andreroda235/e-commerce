@@ -20,7 +20,7 @@ export const CarouselItem = React.forwardRef(({ children}, ref) => {
     -automatically calculate children size. DONE
     -refactor to useReducer. DONE
       -if useReducer doens't fix button spam problem
-      then consider adding timer option to buttons
+      then consider adding timer option to buttons. DONE
 */
 
 const initialState = {
@@ -125,8 +125,8 @@ const Carousel = ({
 
   const buttons = (
     <div className={classes["overlay-btns"]} style={arrowDivStyle}>
-      <CustomButton inverted height="100%" onClick={previous}/>
-      <CustomButton height = "100%" onClick={next}/>
+      <CustomButton arrow flip fitParent size="big" timeout={300} onClick={previous}/>
+      <CustomButton arrow fitParent size="big" timeout={300} onClick={next}/>
     </div>
   );
 

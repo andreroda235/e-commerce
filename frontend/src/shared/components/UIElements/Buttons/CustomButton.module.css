@@ -1,12 +1,32 @@
 
+
 .arrow-button {
     background-color: transparent;
     border: none;
 }
 
 .arrow-button img {
-    width: 70px;
-    height: 70px;
+    /* var(--darkerHighlight) */
+    filter: invert(12%) sepia(20%) saturate(7196%) hue-rotate(263deg) brightness(51%) contrast(111%);
+}
+
+.arrow-button--small img {
+    width: 20px;
+    height: 20px;
+}
+
+.arrow-button--default img {
+    width: 50px;
+    height: 50px;
+}
+
+.arrow-button--big img {
+    width: 100px;
+    height: 100px;
+}
+
+.arrow-button--flip {
+    transform: rotateY(180deg);
 }
 
 .arrow-button:hover {
