@@ -3,7 +3,7 @@ import CustomButton from "../UIElements/Buttons/CustomButton";
 
 import classes from "./Carousel.module.css";
 
-export const CarouselItem = React.forwardRef(({ children}, ref) => {
+export const CarouselItem = React.forwardRef(({children}, ref) => {
   return (
       <div className={classes["carousel-item"]} ref={ ref ? ref : null}>
           {children}

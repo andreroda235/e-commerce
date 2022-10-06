@@ -1,5 +1,5 @@
 import Carousel, { CarouselItem } from "../shared/components/Carousel/Carousel";
-import CustomButton from "../shared/components/UIElements/Buttons/CustomButton";
+import Grid from "../shared/components/List/Grid";
 
 const items = [
     'https://grazia.wwmindia.com/content/2018/oct/bodyc-rae1539588422.jpg',
@@ -8,6 +8,17 @@ const items = [
     'https://wallpapercave.com/wp/wp5599683.jpg',
     'https://files.northernbeaches.nsw.gov.au/sites/default/files/images/general-information/sports-associations/sports-associations.jpg',
     'https://wallpaperaccess.com/full/6032086.jpg'
+]
+
+const divs = [
+    'red',
+    'blue',
+    'black',
+    'yellow',
+    'orange',
+    'green',
+    'purple',
+    'pink',
 ]
 
 const HomePage = () => {
@@ -31,8 +42,12 @@ const HomePage = () => {
                         </CarouselItem>
                     ))}
                 </Carousel>
-                <div style={{width: '100%', height: '2000px', position: 'absolute', backgroundColor: 'red', top: '300px'}}>
-                    <text>category list</text>
+                <div style={{width: '100%', height: '2000px', position: 'absolute', backgroundColor: 'transparent', top: '300px'}}>
+                    <Grid>
+                        {divs.map((color) => (
+                            <div style={{width: '300px', height: '500px', backgroundColor: color}}/>
+                        ))}
+                    </Grid>
                 </div>
             </div>
         </div>
