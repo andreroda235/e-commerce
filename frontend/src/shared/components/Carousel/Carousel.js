@@ -125,8 +125,8 @@ const Carousel = ({
 
   const buttons = (
     <div className={classes["overlay-btns"]} style={arrowDivStyle}>
-      <CustomButton arrow flip fitParent size="big" timeout={300} onClick={previous}/>
-      <CustomButton arrow fitParent size="big" timeout={300} onClick={next}/>
+      <CustomButton arrow flip fitParentH size="big" timeout={300} onClick={previous}/>
+      <CustomButton arrow fitParentH size="big" timeout={300} onClick={next}/>
     </div>
   );
 

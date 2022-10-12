@@ -4,12 +4,15 @@ import classes from './SideDrawerItem.module.css';
 
 import arrowIcon from '../../../assets/arrow-icon-1174.png';
 
-const SideDrawerItem = ({ tag, id, clickItem, link}) => {
+const SideDrawerItem = ({ tag, id, clickItem, link, toggleDrawer}) => {
     const navigate = useNavigate();
 
     const drawerItemClickHandler = () => {
-        if(link)
+        if(link){
+            //maybe context to toggle the drawer or do this in levels above
+            toggleDrawer();
             return navigate('/category/' + link);
+        }
 
         clickItem(id);
     };

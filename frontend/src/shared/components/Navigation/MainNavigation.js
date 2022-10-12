@@ -22,8 +22,8 @@ const MainNavigation = () => {
     return (
         <>
             {drawerIsOpen && <Backdrop onClick={toggleDrawerHandler}/>}
-            <SideDrawer show={drawerIsOpen}>
-                <SideDrawerContent/>
+            <SideDrawer show={drawerIsOpen} left>
+                <SideDrawerContent toggleDrawer={toggleDrawerHandler}/>
             </SideDrawer>
             <MainHeader>
             <div className={classes['group-logo-menu']}>

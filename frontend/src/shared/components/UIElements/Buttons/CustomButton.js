@@ -5,20 +5,22 @@ import arrowIcon from "../../../../assets/arrow-icon-1174.png";
 let inactive = 0;
 
 const CustomButton = ({
-  href,
-  size,
-  fitParent,
-  arrow,
-  inverse,
-  flip,
-  danger,
-  to,
-  exact,
-  type,
-  onClick,
-  disabled,
-  timeout,
-  children,
+    text,
+    href,
+    size,
+    fitParentH,
+    fitParentW,
+    arrow,
+    inverse,
+    flip,
+    danger,
+    to,
+    exact,
+    type,
+    onClick,
+    disabled,
+    timeout,
+    children,
 }) => {
 
 
@@ -38,17 +40,29 @@ const CustomButton = ({
 
     if (arrow)
         return (
+            <button
+                className={
+                classes["arrow-button"] + " " +
+                classes[`arrow-button--${size || "default"}`] + " " +
+                classes[`${flip && "arrow-button--flip"}`]
+                }
+                onClick={clickHandler}
+                style={{ height: fitParentH ? "100%" : "fit-content" }}
+                disabled={disabled}
+            >
+                <img src={arrowIcon} alt=">" />
+            </button>
+        );
+
+    return (
         <button
-            className={
-            classes["arrow-button"] + " " +
-            classes[`arrow-button--${size || "default"}`] + " " +
-            classes[`${flip && "arrow-button--flip"}`]
-            }
-            onClick={clickHandler}
-            style={{ height: fitParent ? "100%" : "fit-content" }}
+            className={classes.button + ' ' + classes[`button--${size || 'default'}`] + ' ' + classes[`${inverse &&
+                'button--inverse'}`] + ' ' + classes[`${danger && 'button--danger'}`]}
+            type={type}
+            onClick={onClick}
             disabled={disabled}
         >
-            <img src={arrowIcon} alt=">" />
+            {children}
         </button>
         );
 };

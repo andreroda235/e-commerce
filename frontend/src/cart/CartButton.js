@@ -2,13 +2,19 @@
 import { uiActions } from '../store/ui-slice'; */
 import { useEffect, useState } from 'react';
 
-import cartIcon from '../assets/shopping_cart_icon_172223.png';
+import SideDrawer from '../shared/components/Navigation/SideDrawer';
+import Backdrop from '../shared/components/UIElements/Backdrop';
+import CartDrawerContent from './CartDrawerContent';
 
 import classes from './CartButton.module.css';
+
+import cartIcon from '../assets/shopping_cart_icon_172223.png';
+
 
 const CartButton = (props) => {
     /* const dispatch = useDispatch();
     const totalItems = useSelector(state => state.cart.totalQuantity); */
+    const [cartIsOpen, setCartIsOpen] = useState(false);
     const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
     const totalItems = 4;
     
@@ -31,17 +37,22 @@ const CartButton = (props) => {
 
 
     const toggleCartHandler = () => {
-        /* dispatch(uiActions.toggleCart()); */
+      setCartIsOpen((prevState) => (!prevState));
     }
 
-
     return (
+        <>
+            {cartIsOpen && <Backdrop onClick={toggleCartHandler}/>}
+            <SideDrawer show={cartIsOpen}>
+                <CartDrawerContent/>
+            </SideDrawer>
         <button onClick={toggleCartHandler} className={btnClasses}>
             <span>
                 <img src={cartIcon} alt="Cart"/>
             </span>
             <span className={classes.badge}>{totalItems}</span>
         </button>
+      </>
     );
 };
 
