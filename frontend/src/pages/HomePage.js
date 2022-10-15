@@ -1,4 +1,4 @@
-import CategoryCard from "../Items/CategoryCard";
+import CategoryCard from "../shopping/CategoryCard";
 import Carousel, { CarouselItem } from "../shared/components/Carousel/Carousel";
 import Grid from "../shared/components/List/Grid";
 

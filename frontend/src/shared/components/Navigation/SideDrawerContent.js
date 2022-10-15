@@ -3,6 +3,8 @@ import { useState } from 'react';
 import classes from './SideDrawerContent.module.css'
 import SideDrawerItem from './SideDrawerItem';
 
+import arrowIcon from '../../../assets/arrow-icon-1174.png';
+
 const departments = [
     {
         category: 'Electronics',
@@ -88,7 +90,11 @@ const SideDrawerContent = ({toggleDrawer}) => {
                             <p>Logout</p>
                         </div>
                         <div className={classes['slider-item']}>
-                            <h3 className={classes.back} onClick={() => (setToggle(0))}>{'<  Back'}</h3>
+                            <div className={classes.back}>
+                                <img src={arrowIcon} alt="back"/>
+                                <h3 className={classes.back} onClick={() => (setToggle(0))}>{'Back'}</h3>
+                            </div>
+                            <hr />
                             <ul>
                             {departments[category].subCategories.map((item, index) => (
                                 <SideDrawerItem
@@ -105,9 +111,6 @@ const SideDrawerContent = ({toggleDrawer}) => {
                     </div>
                 </div>
             </div>
-            {
-
-            }
         </>
     );
 };

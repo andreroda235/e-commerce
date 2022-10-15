@@ -31,7 +31,17 @@
 
 .back {
     color: var(--darkerHighlight);
+    display: flex;
+    align-items: center;
 }
+
+.back img {
+    height: 20px;
+    width: 20px;
+    transform: scaleX(-1);
+    margin-right: 1rem;
+}
+
 
 .back:hover {
     color: var(--highlightColor);

@@ -1,0 +1,146 @@
+.card {
+    padding: 1.5rem;
+    width: 350px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.header {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.5s;
+}
+
+.header:hover {
+    transform: scale(1.1);
+}
+
+.header img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+}
+
+
+
+
+.discount {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: #6bbe66;
+    font-size: 20px;
+    font-weight: normal;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: 0;
+}
+
+.super-discount {
+    background-color: rgb(246, 218, 0);
+    font-weight: bold;
+    color: black;
+}
+
+.mega-discount {
+    background-color: red;
+    font-weight: bolder;
+    color: white;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.body h3 {
+    color: var(--darkerHighlight);
+}
+
+.description {
+    overflow: hidden;
+    height: fit-content;
+    width: 100%;
+}
+
+.description p {
+    font-size: small;
+    font-weight: lighter;
+    margin: 0;
+    color: gray;
+    line-height: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+}
+
+.center-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.stock img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.stocked {
+    color: #6bbe66;
+}
+
+.few {
+    color: #e4871a;
+}
+
+.unavailable {
+    color: #f44336;
+}
+
+.price {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.price h2{
+    font-weight: bolder;
+    color: var(--highlightMagenta);
+    font-size: 40px;
+    margin: 0;
+    margin-right: 8px;
+}
+
+.price p {
+    font-size: 25px;
+    text-decoration: line-through;
+    color: gray;
+}
+
+.price-gray h2 {
+    color:gray
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+}

@@ -42,17 +42,17 @@ const CartButton = (props) => {
 
     return (
         <>
-            {cartIsOpen && <Backdrop onClick={toggleCartHandler}/>}
-            <SideDrawer show={cartIsOpen}>
-                <CartDrawerContent/>
-            </SideDrawer>
-        <button onClick={toggleCartHandler} className={btnClasses}>
-            <span>
-                <img src={cartIcon} alt="Cart"/>
-            </span>
-            <span className={classes.badge}>{totalItems}</span>
-        </button>
-      </>
+          {cartIsOpen && <Backdrop onClick={toggleCartHandler}/>}
+          <SideDrawer show={cartIsOpen}>
+              <CartDrawerContent/>
+          </SideDrawer>
+          <button onClick={toggleCartHandler} className={btnClasses}>
+              <span>
+                  <img src={cartIcon} alt="Cart"/>
+              </span>
+              <span className={classes.badge}>{totalItems}</span>
+          </button>
+        </>
     );
 };
 
