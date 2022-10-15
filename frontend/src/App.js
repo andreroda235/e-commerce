@@ -11,7 +11,7 @@ const App = () => {
   let routes = (
     <>
       <Route path="/" exact element={<HomePage/>}/>
-      <Route path="/shopping/:category" exact element={<ShoppingPage/>}/>
+      <Route path="/shopping/:category/:subcategory" exact element={<ShoppingPage/>}/>
     </>
   );
 

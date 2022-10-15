@@ -12,6 +12,10 @@
     object-fit: contain;
 }
 
+.button:hover {
+    cursor: pointer;
+}
+
 .default:active {
     transition: transform 0.3s;
     transform: scale(1.5);

@@ -8,7 +8,7 @@
 .container-columns {
     grid-template-columns: auto auto auto auto;
     grid-column-gap: 2%;
-    grid-row-gap: 40px;
+    grid-row-gap: 20px;
 }
 
 .grid-item {
@@ -19,16 +19,12 @@
 @media screen and (max-width: 1200px){
     .container-columns {
         grid-template-columns: auto auto auto;
-        grid-column-gap: 3%;
-        grid-row-gap: 30px;
     }
 }
 
 @media screen and (max-width: 981px){
     .container-columns {
         grid-template-columns: auto auto;
-        grid-column-gap: 2%;
-        grid-row-gap: 20px;
     }
 }
 

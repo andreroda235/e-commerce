@@ -1,11 +1,11 @@
 import Card from "../shared/components/UIElements/Card";
+import WishlistButton from "../shared/components/UIElements/Buttons/WishlistButton";
 
 import classes from './ShoppingItemCard.module.css';
 
 import stockIconGreen from '../assets/stock-icons/stock-icon-green.png';
 import stockIconRed from '../assets/stock-icons/stock-icon-red.png';
 import stockIconYlw from '../assets/stock-icons/stock-icon-ylw.png';
-import WishlistButton from "../shared/components/UIElements/Buttons/WishlistButton";
 
 const ShoppingItemCard = ({imgSrc, title, stock, discount, description, price, id}) => {
 
@@ -39,12 +39,13 @@ const ShoppingItemCard = ({imgSrc, title, stock, discount, description, price, i
         <div onClick={itemClickHandler}>
             <Card className={classes.card}>
                 <div className={classes.header}>
-                    {discount < 1 && 
+                    {discount < 1 &&
                     <div className={
                             classes.discount + ' ' +
-                            classes[discountClass]
+                            classes[discountClass] + ' ' +
+                            (stock === 0 && classes['grey-discount'])
                             }>
-                        <p>{discount*100}%</p>
+                        <p>{(discount*100).toFixed(0)}%</p>
                     </div>}
                     <img src={imgSrc} alt={title}/>
                 </div>
