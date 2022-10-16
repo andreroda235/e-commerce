@@ -6,7 +6,7 @@ import wishlistFullIcon from '../../../../assets/wishlist/wishlist-full.png';
 
 import classes from './WishlistButton.module.css';
 
-const WishlistButton = ({onClick, disabled}) => {
+const WishlistButton = ({onClick}) => {
 
     const [isClicked, setIsClicked] = useState(false);
 
@@ -19,11 +19,7 @@ const WishlistButton = ({onClick, disabled}) => {
 
     return (
         <button 
-            disabled={disabled} 
-            className={
-                classes.button + ' ' + 
-                (disabled ? classes.disabled : classes.default)
-            } 
+            className={classes.button} 
             onClick={wishlistClickHandler}>
             <img src={isClicked ? wishlistFullIcon : wishlistEmptyIcon} alt="wishlist"/>
         </button>

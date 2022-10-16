@@ -30,13 +30,13 @@ const ShoppingItemCard = ({imgSrc, title, stock, discount, description, price, i
     }
 
     let discountClass;
-    if(discount >= 0.15 && discount <= 0.3)
+    if(discount >= 0.2 && discount <= 0.4)
         discountClass = 'super-discount';
-    else if(discount > 0.3)
+    else if(discount > 0.4)
         discountClass = 'mega-discount';
     
     return (
-        <div onClick={itemClickHandler}>
+        <div className={classes.container} onClick={itemClickHandler}>
             <Card className={classes.card}>
                 <div className={classes.header}>
                     {discount < 1 &&
@@ -50,7 +50,7 @@ const ShoppingItemCard = ({imgSrc, title, stock, discount, description, price, i
                     <img src={imgSrc} alt={title}/>
                 </div>
                 <div className={classes.body}>
-                    <h3>{title}</h3>
+                    <h3 onClick={itemClickHandler}>{title}</h3>
                     <div className={classes.description}>
                         <p>{description}</p>
                     </div>

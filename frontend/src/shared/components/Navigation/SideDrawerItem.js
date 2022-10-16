@@ -11,7 +11,7 @@ const SideDrawerItem = ({ tag, id, clickItem, link, toggleDrawer}) => {
         if(link){
             //maybe context to toggle the drawer or do this in levels above
             toggleDrawer();
-            return navigate('/category/' + link);
+            return navigate(link);
         }
 
         clickItem(id);

@@ -7,7 +7,7 @@ import classes from './CategoryCard.module.css';
 const CategoryCard = ({title, imgSrc, to}) => {
 
     return (
-        <Card className={classes.card}>
+        <Card shadow className={classes.card}>
             <div className={classes.headline}>
                 <h2 style={{fontSize: title.length > 22 ? '1.3rem' : '1.5rem'}}>{title}</h2>
             </div>

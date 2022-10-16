@@ -6,14 +6,22 @@
 }
 
 .container-columns {
-    grid-template-columns: auto auto auto auto;
-    grid-column-gap: 2%;
+    grid-template-columns: repeat(4, calc(25% - 0.75em));
+    grid-gap: 1em;
     grid-row-gap: 20px;
+}
+
+.big-gap {
+    grid-gap: 2em;
 }
 
 .grid-item {
     height: fit-content;
     width: fit-content;
+
+
+    overflow: hidden ;
+    min-width: 0; 
 }
 
 @media screen and (max-width: 1200px){

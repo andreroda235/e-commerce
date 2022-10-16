@@ -11,7 +11,7 @@ export const GridItem = ({children}) => {
 };
 
 
-const Grid = ({children}) => {
+const Grid = ({children, bigGap}) => {
 
     //scale items down with window size
     console.log(children);
@@ -19,7 +19,8 @@ const Grid = ({children}) => {
     return (
         <div className={
             classes.container + ' ' +
-            classes['container-columns']
+            classes['container-columns'] + ' ' +
+            (bigGap && classes['big-gap'])
         }>
             {children.map((child, index) => (
                 <GridItem key={'GI' + index}>

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import HomePage from "./pages/HomePage";
 import ShoppingPage from "./pages/ShoppingPage";
+import ItemDetailPage from "./pages/ItemDetailPage";
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
     <>
       <Route path="/" exact element={<HomePage/>}/>
       <Route path="/shopping/:category/:subcategory" exact element={<ShoppingPage/>}/>
+      <Route path="/shopping/item-detail/:item" exact element={<ItemDetailPage/>}/>
     </>
   );
 

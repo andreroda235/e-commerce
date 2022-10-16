@@ -102,7 +102,7 @@ const SideDrawerContent = ({toggleDrawer}) => {
                                 id={index}
                                 tag={item}
                                 clickItem={slideHandler}
-                                link={'/shopping/' + item}
+                                link={'/shopping/' + departments[category].category + '/' + item}
                                 toggleDrawer={toggleDrawer}
                                 />
                             ))}

@@ -16,12 +16,8 @@
     cursor: pointer;
 }
 
-.default:active {
+.button:active {
     transition: transform 0.3s;
     transform: scale(1.5);
 }
 
-.disabled {
-    filter: grayscale(100%);
-    cursor: not-allowed;
-}

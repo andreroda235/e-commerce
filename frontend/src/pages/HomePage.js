@@ -70,16 +70,15 @@ const HomePage = () => {
                         <CarouselItem key={'CI.' + index}>
                             <div className="center" style={{
                                 width: '1500px', height: '600px', 
-                                backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) ${(230/600) * 100}%, rgba(255,255,255,1)), url(${item})`
-                            }}/>
+                                backgroundImage: `linear-gradient(to bottom, rgba(255,255,255,0) ${(230/600) * 100}%, rgba(250, 243, 255, 1)), url(${item})`                            }}/>
                         </CarouselItem>
                     ))}
                 </Carousel>
-                <div style={{backgroundColor: 'white', width: '100%', height: '1000px'}}/>
+                <div style={{backgroundColor: 'var(--background)', width: '100%', height: '1000px'}}/>
             </div>
             
-            <div style={{width: '100%', height: 'fit-content', position: 'absolute', backgroundColor: 'transparent', top: '300px'}}>
-                <Grid>
+            <div style={{ width: '100%', height: 'fit-content', position: 'absolute', backgroundColor: 'transparent', top: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <Grid bigGap={true}>
                     {categories.map((category) => (
                         <CategoryCard
                         title={category.title}

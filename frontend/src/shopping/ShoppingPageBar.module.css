@@ -1,0 +1,48 @@
+.bar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.bar button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.bar span {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.bar img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-left: 8px;
+    /* var(--highlightColor) */
+    filter: invert(15%) sepia(90%) saturate(3812%) hue-rotate(275deg) brightness(86%) contrast(101%);
+}
+
+.bar label {
+    margin-right: 1rem;
+}
+
+.bar select {
+    outline: none;
+    border: none;
+    margin-left: 8px;
+    color: var(--highlightColor);
+}
+
+.bar option,
+.bar select,
+.bar label,
+.bar button {
+    font-size: 0.9rem;
+}

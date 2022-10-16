@@ -6,6 +6,7 @@
   --darkerHighlight: #380951;
   --highlightGray: rgb(239, 239, 239);
   --highlightMagenta: #ff0055;
+  --background: #faf3ff;
 }
 
 * {
@@ -14,11 +15,11 @@
 
 html {
   font-family: 'Open Sans', sans-serif;
+  background-color: var(--background);
 }
 
 body {
   margin: 0;
-  background: #ffffff;
 }
 
 .slide-in-left-enter {
@@ -80,6 +81,7 @@ body {
   align-items: center;
   flex-direction: column;
   overflow: visible;
-  /* background-color: var(--highlightMagenta); */
+  /* background-color: var(--background); */
   position: relative;
+  padding-top: 1rem;
 }
