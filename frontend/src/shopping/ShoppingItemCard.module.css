@@ -101,25 +101,6 @@
     align-items: center;
 }
 
-.stock img {
-    width: 20px;
-    height: 20px;
-    object-fit: cover;
-    margin-right: 8px;
-}
-
-.stocked {
-    color: #6bbe66;
-}
-
-.few {
-    color: #e4871a;
-}
-
-.unavailable {
-    color: #f44336;
-}
-
 .price {
     margin: 0;
     padding: 0;

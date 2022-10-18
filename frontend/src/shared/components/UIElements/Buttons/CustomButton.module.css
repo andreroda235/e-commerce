@@ -100,3 +100,11 @@
   .button--big {
     font-size: 1.5rem;
   }
+
+  .button--stretch {
+    width: 100%;
+  }
+
+  .button--nowrap {
+    white-space: nowrap;
+  }

@@ -14,12 +14,14 @@ const CustomButton = ({
     inverse,
     flip,
     danger,
+    nowrap,
     to,
     exact,
     type,
     onClick,
     disabled,
     timeout,
+    stretch,
     children,
 }) => {
 
@@ -56,8 +58,14 @@ const CustomButton = ({
 
     return (
         <button
-            className={classes.button + ' ' + classes[`button--${size || 'default'}`] + ' ' + classes[`${inverse &&
-                'button--inverse'}`] + ' ' + classes[`${danger && 'button--danger'}`]}
+            className={
+                classes.button + ' ' + 
+                classes[`button--${size || 'default'}`] + ' ' + 
+                classes[`${inverse && 'button--inverse'}`] + ' ' + 
+                classes[`${danger && 'button--danger'}`] + ' ' + 
+                classes[`${stretch && 'button--stretch'}`] + ' ' +
+                classes[`${nowrap && 'button--nowrap'}`]
+            }
             type={type}
             onClick={onClick}
             disabled={disabled}

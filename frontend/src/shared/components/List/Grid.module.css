@@ -16,12 +16,12 @@
 }
 
 .grid-item {
-    height: fit-content;
-    width: fit-content;
+    /* height: fit-content; */
+    width: 100%;
 
 
-    overflow: hidden ;
-    min-width: 0; 
+    overflow: hidden;
+    min-width: 100%;
 }
 
 @media screen and (max-width: 1200px){

@@ -1,33 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 import Card from "../shared/components/UIElements/Card";
 import WishlistButton from "../shared/components/UIElements/Buttons/WishlistButton";
+import StockAlert from "./StockAlert";
 
 import classes from './ShoppingItemCard.module.css';
 
-import stockIconGreen from '../assets/stock-icons/stock-icon-green.png';
-import stockIconRed from '../assets/stock-icons/stock-icon-red.png';
-import stockIconYlw from '../assets/stock-icons/stock-icon-ylw.png';
 
 const ShoppingItemCard = ({imgSrc, title, stock, discount, description, price, id}) => {
+    const navigate = useNavigate();
 
     const itemClickHandler = () => {
-        console.log(id + ' clicked');
+        navigate('/shopping/item-detail/' + id);
     };
-
-    let availableStock = {
-        display : 'In Stock', 
-        class   : 'stocked',
-        icon    : stockIconGreen
-    };
-    if(stock <= 10 && stock > 0){
-        availableStock.display  = 'Only ' + stock + ' left!';
-        availableStock.class    = 'few';
-        availableStock.icon     = stockIconYlw
-    }
-    if(stock === 0){
-        availableStock.display  = 'Unavailable';
-        availableStock.class    = 'unavailable';
-        availableStock.icon     = stockIconRed
-    }
 
     let discountClass;
     if(discount >= 0.2 && discount <= 0.4)
@@ -54,15 +39,7 @@ const ShoppingItemCard = ({imgSrc, title, stock, discount, description, price, i
                     <div className={classes.description}>
                         <p>{description}</p>
                     </div>
-                    <div className={
-                        classes.stock + ' ' +
-                        classes['center-row']
-                        }>
-                        <img src={availableStock.icon} alt=""/>
-                        <h4 className={classes[availableStock.class]}>
-                            {availableStock.display}
-                        </h4>
-                    </div>
+                    <StockAlert stock={stock}/>
                     <div 
                         className={classes['center-row'] + ' ' + 
                         classes.price + ' ' + 

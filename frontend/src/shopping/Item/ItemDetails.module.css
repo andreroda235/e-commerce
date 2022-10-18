@@ -1,0 +1,61 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem;
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.tab {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.tab button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    line-height: 1.75rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    padding: 8px;
+}
+
+.tab button:hover {
+    cursor: pointer;
+}
+
+.tab--selected button{
+    color: var(--highlightColor);;
+}
+
+.tab--unselected button{
+    color: var(--highlightDarkerGray);;
+}
+
+.slidebar {
+    width: 100%;
+    height: 0.25rem;
+    background-color: var(--highlightDarkerGray);
+    display: flex;
+}
+
+.bar {
+    height: 100%;
+    background-color: var( --highlightColor);
+    border-radius: 10px;
+}
+
+.content {
+    margin-top: 16px;
+}

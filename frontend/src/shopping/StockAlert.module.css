@@ -1,0 +1,28 @@
+.stock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.stock img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.stock h4 {
+    margin: 0;
+}
+
+.stocked {
+    color: #6bbe66;
+}
+
+.few {
+    color: #e4871a;
+}
+
+.unavailable {
+    color: #f44336;
+}

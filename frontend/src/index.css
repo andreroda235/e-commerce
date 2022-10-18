@@ -7,6 +7,7 @@
   --highlightGray: rgb(239, 239, 239);
   --highlightMagenta: #ff0055;
   --background: #faf3ff;
+  --highlightDarkerGray: rgb(212, 212, 212);
 }
 
 * {
