@@ -1,6 +1,7 @@
 import CategoryCard from "../shopping/CategoryCard";
 import Carousel, { CarouselItem } from "../shared/components/Carousel/Carousel";
 import Grid from "../shared/components/List/Grid";
+import Page from "../shared/components/UIElements/Page";
 
 const items = [
     'https://grazia.wwmindia.com/content/2018/oct/bodyc-rae1539588422.jpg',
@@ -57,7 +58,7 @@ const categories = [
 const HomePage = () => {
 
     return(
-        <div className="page">
+        <Page>
             <div style={{maxWidth: '1500px', position: 'relative', backgroundColor: 'white'}}>
                 <Carousel
                     elements={items}
@@ -88,7 +89,7 @@ const HomePage = () => {
                     ))}
                 </Grid>
             </div>
-        </div>
+        </Page>
     );
 };
 

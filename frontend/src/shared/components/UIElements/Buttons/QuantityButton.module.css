@@ -23,6 +23,7 @@
     border: none;
     text-align:center;
     font-size: 1rem;
+    width: 60px;
 }
 
 .quantity input::-webkit-outer-spin-button,
@@ -31,6 +32,7 @@
     margin: 0;
 }
 
-quantity input[type=number] {
-    -moz-appearance:textfield; 
+.quantity input[type=number] {
+    -moz-appearance:textfield;
+    
 }

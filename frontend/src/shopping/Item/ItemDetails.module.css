@@ -54,6 +54,7 @@
     height: 100%;
     background-color: var( --highlightColor);
     border-radius: 10px;
+    transition  : transform 0.3s
 }
 
 .content {

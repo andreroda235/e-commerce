@@ -1,0 +1,30 @@
+.flyout {
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    position: relative;
+}
+
+.triangle--container {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.triangle {
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 20px solid white;
+    right: 32px;
+}
+
+.content {
+    width: fit-content;
+    padding: 16px;
+    width: 150px;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Grid from "../shared/components/List/Grid";
 import Card from "../shared/components/UIElements/Card";
+import Page from "../shared/components/UIElements/Page";
 import ShoppingItemCard from "../shopping/ShoppingItemCard";
 import ShoppingPageBar from "../shopping/ShoppingPageBar";
 
@@ -31,7 +32,7 @@ const ShoppingPage = () => {
 
 
     return (
-        <div className="page">
+        <Page>
             <div className={classes.row}>
                 {/* make this a separate component for a drawer */}
                 {showFilters && 
@@ -60,7 +61,7 @@ const ShoppingPage = () => {
                     </Grid>
                 </div>
             </div>
-        </div>
+        </Page>
     );
 };
 

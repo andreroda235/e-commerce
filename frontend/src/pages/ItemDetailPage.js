@@ -1,4 +1,5 @@
 import Grid from "../shared/components/List/Grid";
+import Page from "../shared/components/UIElements/Page";
 import ItemDetails from "../shopping/Item/ItemDetails";
 import ItemPhotos, { ItemPhotosItem } from "../shopping/Item/ItemPhotos";
 import ItemSummary from "../shopping/Item/ItemSummary";
@@ -24,7 +25,7 @@ const item = {
 
 const ItemDetailPage = () => {
     return (
-        <div className={"page " + classes.page}>
+        <Page className={classes.page}>
             <Grid gridClass={classes.grid}>
                 <ItemPhotos>
                     {photos.map((photo, index)=> (
@@ -41,7 +42,7 @@ const ItemDetailPage = () => {
                 </div>
                 <ItemDetails/>
             </Grid>
-        </div>
+        </Page>
     );
 };
 

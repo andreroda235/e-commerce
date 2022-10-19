@@ -12,10 +12,6 @@ export const GridItem = ({children}) => {
 
 
 const Grid = ({children, bigGap, gridClass}) => {
-
-    //scale items down with window size
-    console.log(children);
-
     return (
         <div className={
             classes.container + ' ' +

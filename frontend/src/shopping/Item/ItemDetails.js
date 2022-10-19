@@ -56,8 +56,7 @@ const ItemDetails = () => {
                             classes.tab + ' ' +
                             classes['tab--' + (index === slide ? 'selected' : 'unselected')]
                         }>
-                        <button 
-                            onClick={changeTabHandler.bind(null, index)}>
+                        <button onClick={changeTabHandler.bind(null, index)}>
                             {tab}
                         </button>
                     </div>
@@ -65,7 +64,6 @@ const ItemDetails = () => {
             </div>
             <div className={classes.slidebar}>
                 <div className={classes.bar} style={{
-                    transition  : 'transform 0.3s',
                     transform   : `translateX(${slide}00%)`,
                     width       : `calc(100%/${tabs.length})`
                 }}/>

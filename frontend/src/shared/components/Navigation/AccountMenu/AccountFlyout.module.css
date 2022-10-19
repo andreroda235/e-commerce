@@ -1,0 +1,12 @@
+.flyout {
+    position: absolute;
+    right: 8px;
+    width: fit-content;
+    height: fit-content;
+    z-index: 100;
+    margin-top: -15px;
+}
+
+.invisible {
+    display: none;
+}

@@ -5,6 +5,9 @@ import MainNavigation from './shared/components/Navigation/MainNavigation';
 import HomePage from "./pages/HomePage";
 import ShoppingPage from "./pages/ShoppingPage";
 import ItemDetailPage from "./pages/ItemDetailPage";
+import { FlyoutHook } from "./shared/components/Navigation/AccountMenu/AccountFlyout";
+import { BackdropHook } from "./shared/components/UIElements/Backdrop2";
+import Content from "./pages/Content";
 
 const App = () => {
 
@@ -21,9 +24,13 @@ const App = () => {
     <BrowserRouter>
       <MainNavigation/>
       <main>
-        <Routes>
-          {routes}
-        </Routes>
+        <Content>
+          <BackdropHook/>
+          <FlyoutHook/>
+          <Routes>
+              {routes}
+          </Routes>
+        </Content>
       </main>
     </BrowserRouter>
   );

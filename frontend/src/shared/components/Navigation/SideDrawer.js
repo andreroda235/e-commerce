@@ -10,9 +10,9 @@ const SideDrawer = ({ children, show, onClick, left}) => {
 
   const content = (
     <CSSTransition
-      in={show}
-      timeout={200}
-      classNames={`slide-in-${from}`}
+      in          ={show}
+      timeout     ={200}
+      classNames  ={`slide-in-${from}`}
       mountOnEnter
       unmountOnExit
     >
