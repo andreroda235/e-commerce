@@ -1,0 +1,102 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.content hr {
+    border: 1px solid  var(--darkerHighlight);
+    border-radius: 5px;
+}
+
+.content p {
+    color: gray;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 150px;
+    background-color: var(--highlightColor);
+}
+
+.banner img {
+    width: 50px;
+    height: 50px;
+    filter: invert(100%);
+}
+.content ul {
+    list-style: none;
+    margin: 0;
+    padding: 16px;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.checkout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.checkout button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 50px;
+    color: white;
+    font-weight: bolder;
+    font-size: large;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.view {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    overflow-x: hidden;
+    border-radius: 2px;
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.purple {
+    min-width: 100%;
+    height: 100%;
+    background-color: var(--highlightColor);
+}
+
+.magenta {
+    min-width: 100%;
+    height: 100%;
+    background-color: var(--highlightMagenta);
+}
+
+#checkout-text {
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+

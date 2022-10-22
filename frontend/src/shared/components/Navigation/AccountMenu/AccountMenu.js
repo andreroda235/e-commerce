@@ -41,9 +41,10 @@ const AccountMenu = () => {
                 {menuItems.map((item, index) => {
                     const logout = index === menuItems.length ? {logout: true} : {};
                     return <MenuItem
-                            item={item.item}
-                            link={item.link}
-                            {...logout}
+                                key  ={'account-menu' + index}
+                                item ={item.item}
+                                link ={item.link}
+                                {...logout}
                             />
                 })}
             </ul>

@@ -11,9 +11,12 @@ const QuantityButton = ({onChange, min, max, step}) => {
     };
 
     const changeValue = (value) => {
-        setValue((prev) => (
-            prev + value >= min && prev + value <= max ? prev + value : prev
-        ));
+        //useReducer
+        setValue((prev) => {
+            const update = prev + value >= min && prev + value <= max ? prev + value : prev;
+            onChange(update === prev ? 0 : value);
+            return update;
+        });
     }
 
     return (

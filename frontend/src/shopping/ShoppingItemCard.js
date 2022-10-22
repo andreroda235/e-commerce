@@ -21,9 +21,9 @@ const ShoppingItemCard = ({imgSrc, title, stock, discount, description, price, i
         discountClass = 'mega-discount';
     
     return (
-        <div className={classes.container} onClick={itemClickHandler}>
+        <div className={classes.container}>
             <Card className={classes.card}>
-                <div className={classes.header}>
+                <div className={classes.header} onClick={itemClickHandler}>
                     {discount < 1 &&
                     <div className={
                             classes.discount + ' ' +

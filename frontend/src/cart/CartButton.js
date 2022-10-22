@@ -9,6 +9,7 @@ import CartDrawerContent from './CartDrawerContent';
 import classes from './CartButton.module.css';
 
 import cartIcon from '../assets/shopping_cart_icon_172223.png';
+import { useSelector } from 'react-redux';
 
 
 const CartButton = (props) => {
@@ -16,7 +17,7 @@ const CartButton = (props) => {
     const totalItems = useSelector(state => state.cart.totalQuantity); */
     const [cartIsOpen, setCartIsOpen] = useState(false);
     const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
-    const totalItems = 4;
+    const totalItems = useSelector((state) => state.cart.totalQuantity);
     
     const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 

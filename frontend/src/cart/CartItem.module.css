@@ -1,0 +1,85 @@
+.item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.item img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.info {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#cart-item-title {
+    color: var(--darkerHighlight);
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+#cart-item-title:hover {
+    color: var(--highlightColor);
+    cursor: pointer;
+}
+
+.info h2 {
+    color: var(--highlightMagenta);
+    font-size: 1.8rem;
+    font-weight: bolder;
+}
+
+#cart-item-close{
+    color: var(--darkerHighlight);
+    font-size: large;
+    font-weight: bolder;
+    margin-right: 2px;
+}
+
+#cart-item-quantity {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--highlightColor);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cart-item-quantity p {
+    color: white;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.item button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+
+.item button:hover {
+    cursor: pointer;
+}
+
+.item button > img {
+    width: 16px;
+    height: 16px;
+}
+
+.item button > img:hover{
+    filter: invert(50%);
+}

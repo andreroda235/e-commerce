@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import Grid from "../shared/components/List/Grid";
 import Page from "../shared/components/UIElements/Page";
 import ItemDetails from "../shopping/Item/ItemDetails";
@@ -24,20 +25,25 @@ const item = {
 }
 
 const ItemDetailPage = () => {
+    const params = useParams();
+
     return (
         <Page className={classes.page}>
             <Grid gridClass={classes.grid}>
                 <ItemPhotos>
                     {photos.map((photo, index)=> (
-                        <ItemPhotosItem src={photo}/>
+                        <ItemPhotosItem key={'photo' + index} src={photo}/>
                     ))}
                 </ItemPhotos>
                 <div className={classes.summary}>
                     <ItemSummary
-                        title       = {item.title}
-                        price       = {item.price}
-                        stock       = {item.stock}
-                        description = {item.description}
+                        title       ={item.title}
+                        price       ={item.price}
+                        stock       ={item.stock}
+                        discount    ={item.discount}
+                        description ={item.description}
+                        id          ={params.itemId}
+                        thumbnail   ={item.imgSrc}
                     />
                 </div>
                 <ItemDetails/>
