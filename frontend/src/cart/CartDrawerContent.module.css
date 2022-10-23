@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 150px;
+    min-height: 150px;
     background-color: var(--highlightColor);
 }
 
@@ -36,8 +36,15 @@
     list-style: none;
     margin: 0;
     padding: 16px;
+    /* max-height: 100%; */
     max-height: 100%;
-    overflow: hidden;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.content ul::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 
 .checkout {
@@ -46,6 +53,8 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .checkout button {

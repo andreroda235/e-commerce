@@ -1,6 +1,9 @@
 /* import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from '../store/ui-slice'; */
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {toggleCart} from '../redux/ui-slice';
 
 import SideDrawer from '../shared/components/Navigation/SideDrawer';
 import Backdrop from '../shared/components/UIElements/Backdrop';
@@ -9,15 +12,15 @@ import CartDrawerContent from './CartDrawerContent';
 import classes from './CartButton.module.css';
 
 import cartIcon from '../assets/shopping_cart_icon_172223.png';
-import { useSelector } from 'react-redux';
 
 
 const CartButton = (props) => {
-    /* const dispatch = useDispatch();
-    const totalItems = useSelector(state => state.cart.totalQuantity); */
-    const [cartIsOpen, setCartIsOpen] = useState(false);
     const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
+    const cartIsOpen = useSelector((state) => state.ui.menu.cartIsOpen);
     const totalItems = useSelector((state) => state.cart.totalQuantity);
+    const dispatch   = useDispatch();
+
+    console.log(cartIsOpen);
     
     const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
@@ -38,7 +41,7 @@ const CartButton = (props) => {
 
 
     const toggleCartHandler = () => {
-      setCartIsOpen((prevState) => (!prevState));
+        dispatch(toggleCart());
     }
 
     return (

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { toggleSideMenu } from "../../../redux/ui-slice";
 
 import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
@@ -13,10 +16,11 @@ import SideDrawerContent from "./SideDrawerContent";
 
 
 const MainNavigation = () => {
-    const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+    const drawerIsOpen = useSelector((state) => state.ui.menu.sideMenuIsOpen);
+    const dispatch   = useDispatch();
 
     const toggleDrawerHandler = () => {
-        setDrawerIsOpen((prevState) => (!prevState));
+        dispatch(toggleSideMenu());
     };
 
     return (

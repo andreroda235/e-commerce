@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { toggleAccMenu } from '../../../../redux/ui-slice';
 
 import AccountFlyout from './AccountFlyout';
 import Backdrop2 from '../../UIElements/Backdrop2';
@@ -9,10 +11,11 @@ import accountImg from '../../../../assets/account-default-pf.png';
 import FlyoutCard from './FlyoutCard';
 
 const AccountButton = () => {
-const [showFlyout, setShowFlyout] = useState(false);
+const showFlyout = useSelector((state) => state.ui.menu.accountMenuIsOpen);
+const dispatch   = useDispatch();
 
     const toggleFlyoutHandler = () => {
-        setShowFlyout(prev => !prev);
+        dispatch(toggleAccMenu());
     };
 
     return(
@@ -21,7 +24,7 @@ const [showFlyout, setShowFlyout] = useState(false);
           <AccountFlyout show={showFlyout}>
               <FlyoutCard/>
           </AccountFlyout>
-        <button onClick={toggleFlyoutHandler} className={classes.button}>
+        <button onClick={toggleFlyoutHandler}  className={classes.button}>
             <img src={accountImg} alt="Account"/>
         </button>
         </>
