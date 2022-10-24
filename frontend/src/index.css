@@ -8,6 +8,9 @@
   --highlightMagenta: #ff0055;
   --background: #faf3ff;
   --highlightDarkerGray: rgb(212, 212, 212);
+
+  --pngFilterDarkColor: invert(3%) sepia(73%) saturate(7500%) hue-rotate(272deg) brightness(102%) contrast(93%);
+  --pngFilterLightColor: invert(13%) sepia(73%) saturate(6808%) hue-rotate(279deg) brightness(81%) contrast(93%);
 }
 
 * {
@@ -85,4 +88,10 @@ body {
   /* background-color: var(--background); */
   position: relative;
   padding-top: 1rem;
+
+  max-width: 1584px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -6,7 +6,7 @@ const store = configureStore({
   reducer: {
     cart : cartReducer,
     ui   : uiSlice
-  },
+  }
 })
 
 store.subscribe(()=>{

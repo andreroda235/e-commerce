@@ -1,0 +1,83 @@
+.review {
+    width: 100%;
+    padding: 0.75rem 3rem;
+}
+
+.review table {
+    table-layout : fixed;
+    min-width: 100%;
+    border-collapse: collapse;
+    text-indent: 0;
+    border-color: inherit;
+    border-spacing: 16px 0px
+}
+
+/* .review thead {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+} */
+
+.review thead tr {
+    border-top: none;
+    color: var(--darkerHighlight);
+    font-weight: bolder;
+    font-size: 1rem;
+}
+
+.review tr {
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+    grid-column-gap: 0.5rem;
+    border-bottom: none;
+    border-top: 1px solid var(--darkerHighlight);
+}
+
+.review td, 
+.review tr {
+    margin: 1rem 0;
+    padding: 1.813rem 0;
+}
+
+#thumbnail {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+}
+
+.description p {
+    font-size: .875rem;
+    font-weight: bolder;
+}
+
+.description p:hover {
+    color: var(--highlightColor);
+    cursor: pointer;
+}
+
+.price {
+    color: var(--highlightMagenta);
+    font-size: 1.25rem;
+    font-weight: bolder;
+}
+
+.total {
+    color: var(--highlightColor);
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+#remove {
+    width: 20px;
+    height: 20px;
+}
+
+#remove:hover {
+    filter:invert(50%);
+    cursor: pointer;
+}
+

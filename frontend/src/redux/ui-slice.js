@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit"
 export const uiSlice = createSlice({
     name: 'ui',
     initialState:{
-        notification: null, 
+        notification: null,
         menu:{
             cartIsOpen        : false,
             sideMenuIsOpen    : false,
