@@ -19,8 +19,6 @@ const CartButton = (props) => {
     const cartIsOpen = useSelector((state) => state.ui.menu.cartIsOpen);
     const totalItems = useSelector((state) => state.cart.totalQuantity);
     const dispatch   = useDispatch();
-
-    console.log(cartIsOpen);
     
     const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
@@ -54,7 +52,7 @@ const CartButton = (props) => {
               <span>
                   <img src={cartIcon} alt="Cart"/>
               </span>
-              <span className={classes.badge}>{totalItems}</span>
+              <div className={classes.badge}>{totalItems}</div>
           </button>
         </>
     );

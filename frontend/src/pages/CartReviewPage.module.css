@@ -3,6 +3,7 @@
     column-gap: 1.5rem;
     row-gap: 1.5rem;
     width: 100%;
+    margin-bottom: 1.25rem;
 }
 
 .rows {
@@ -71,17 +72,25 @@
 
 .cart-summary {
     width: 100%;
-    height: 100%;
     position: relative;
+    height: 100%;
+}
+
+.container-grid {
+    max-width: 500px;
+    position: fixed;
+    row-gap: 1.5rem;
+   /*  width: 100%; */
 }
 
 .summary {
     width: 100%;
-    max-width: 500px;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    margin-right: 1.25rem;
+}
+
+.grid-summary {
+    row-gap: 0.5rem;
+    width: 100%;
 }
 
 .summary h2 {
@@ -92,15 +101,63 @@
 
 .summary-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     color: var(--darkerHighlight);
     font-size: 1rem;
     font-weight: bold;
+    width: 100%;
 }
 
 .summary-item p {
     margin: 0.5rem 0;
 }
 
+.coupon {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.coupon > p {
+    color: var(--darkerHighlight);
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.group-coupon {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    color: var(--highlightMagenta);
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+.group-coupon img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    filter: var(--pngFilterMagenta);
+}
+
+.payment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.payment p {
+    color: var(--highlightMagenta);
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
 

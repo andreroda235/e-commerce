@@ -2,9 +2,8 @@ import { useState } from 'react';
 
 import classes from './QuantityButton.module.css';
 
-const QuantityButton = ({onChange, min, max, step}) => {
-
-    const [value, setValue] = useState(1);
+const QuantityButton = ({onChange, min, max, step, initialValue}) => {
+    const [value, setValue] = useState(initialValue || 1);
 
     const valueChangeHandler = (event) => {
         onChange(event.target.value);

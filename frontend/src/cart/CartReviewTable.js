@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../shared/components/UIElements/Card";
 import StockAlert from '../shopping/StockAlert';
@@ -7,12 +7,18 @@ import QuantityButton from '../shared/components/UIElements/Buttons/QuantityButt
 import removeIcon from '../assets/close-icon.png';
 
 import classes from './CartReviewTable.module.css';
+import { decreaseQuantity, increaseQuantity, removeItem } from "../redux/cart-slice";
 
 
-export const CartTableItem= ({thumbnail, title, price, quantity, stock}) => {
+export const CartTableItem= ({thumbnail, title, price, quantity, stock, index}) => {
+    const dispatch = useDispatch();
     
     const quantityChangeHandler = (value) => {
-        console.log(value);
+        dispatch(value > 0 ? increaseQuantity(index) : decreaseQuantity(index));
+    };
+
+    const removeItemHandler = () => {
+        dispatch(removeItem(index));
     };
 
     return (
@@ -31,17 +37,20 @@ export const CartTableItem= ({thumbnail, title, price, quantity, stock}) => {
             </td>
             <td>
                 <QuantityButton
-                    onChange ={quantityChangeHandler}
-                    min      ={1}
-                    max      ={20}
-                    step     ={1}
+                    onChange     ={quantityChangeHandler}
+                    min          ={1}
+                    max          ={20}
+                    step         ={1}
+                    initialValue ={quantity}
                 />
             </td>
             <td>
                 <p className={classes.total}>{'$' + price*quantity}</p>
             </td>
             <td>
-                <img id={classes.remove} src={removeIcon} alt="x"/>
+                <button onClick={removeItemHandler} id={classes.remove}>
+                    <img src={removeIcon} alt="x"/>
+                </button>
             </td>
         </tr>
     );
@@ -70,6 +79,7 @@ const CartReviewTable = () => {
                             title     ={item.title}
                             price     ={item.price}
                             quantity  ={item.quantity}
+                            index     ={index}
                         />
                     ))}
                 </tbody>

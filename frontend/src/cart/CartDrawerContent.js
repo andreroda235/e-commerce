@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import CartItem from './CartItem';
 import SlideAnimiationButton from '../shared/components/UIElements/Buttons/SlideAnimationButton';
@@ -9,12 +10,12 @@ import cartIcon from '../assets/shopping_cart_icon_172223.png';
 
 
 const CartDrawerContent = () => {
-
-    const cart = useSelector((state) => state.cart);
+    const cart      = useSelector((state) => state.cart);
     const cartEmpty = cart.items.length === 0;
+    const navigate  = useNavigate();
 
     const toCheckoutHandler = () => {
-        console.log('checkout');
+        navigate('/shopping/checkout');
     };
 
     return (

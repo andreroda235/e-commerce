@@ -4,7 +4,7 @@
 }
 
 .review table {
-    table-layout : fixed;
+    table-layout: auto;
     min-width: 100%;
     border-collapse: collapse;
     text-indent: 0;
@@ -72,12 +72,19 @@
 }
 
 #remove {
-    width: 20px;
-    height: 20px;
+    border: none;
+    outline: none;
+    background-color: transparent;
 }
 
 #remove:hover {
     filter:invert(50%);
     cursor: pointer;
+}
+
+#remove img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
