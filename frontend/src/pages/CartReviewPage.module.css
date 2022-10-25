@@ -70,6 +70,28 @@
     filter: invert(27%) sepia(91%) saturate(1137%) hue-rotate(89deg) brightness(103%) contrast(105%);
 }
 
+.empty-cart {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.empty-cart img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    filter: var(--pngFilterDarkColor);
+}
+
+.empty-cart p {
+    color: var(--darkerHighlight);
+    font-size: 1rem;
+    font-weight: bolder;
+    margin: 0;
+}
+
 .cart-summary {
     width: 100%;
     position: relative;

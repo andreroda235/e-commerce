@@ -3,9 +3,9 @@ import { useState } from 'react';
 import classes from './SlideAnimationButton.module.css';
 
 
-const SlideAnimiationButton = ({title, onClick}) => {
+const SlideAnimiationButton = ({title, onClick, disabled}) => {
     const [slide, setSlide] = useState(0);
-
+    
     const onButtonHover = () => {
         setSlide(1);
     };
@@ -14,21 +14,21 @@ const SlideAnimiationButton = ({title, onClick}) => {
         setSlide(0);
     };
 
-    const onCLickHandler = () => {
+    const onClickHandler = () => {
         onClick();
     }
 
     return (
         <div className={classes.btn} onMouseEnter={onButtonHover} onMouseLeave={onButtonHoverExit}>
-            <button onClick={onCLickHandler}>
-                <div className={classes.view}>
+            <button disabled={disabled} onClick={onClickHandler}>
+                {!disabled && <div className={classes.view}>
                     <div style={{transition: 'transform 0.3s', transform   : `translateX(${-slide}00%)`}} className={classes.slider}>
                         <div className={classes.purple}/>
                         <div className={classes.magenta}/>
                     </div>
-                </div>
+                </div>}
             </button>
-            <p id={classes['btn-text']}>{title}</p>
+            <p id={disabled ? classes['btn-text-disabled'] : classes['btn-text']}>{title}</p>
         </div>
     );
 }

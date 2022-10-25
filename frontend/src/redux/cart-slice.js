@@ -53,11 +53,22 @@ export const cartSlice = createSlice({
             state.totalQuantity--;
             if(updateItem.quantity === 0)
                state.items = state.items.filter(item => item.id !== updateItem.id);
+        },
+
+        clearCart: (state) => {
+            state.items         = [];
+            state.totalPrice    = 0;
+            state.totalQuantity = 0;
         }
     }
 });
   
   // Action creators are generated for each case reducer function
-  export const { addItem, removeItem, increaseQuantity, decreaseQuantity } = cartSlice.actions
+  export const { 
+    addItem, 
+    removeItem, 
+    increaseQuantity, 
+    decreaseQuantity, 
+    clearCart } = cartSlice.actions
   
   export default cartSlice.reducer

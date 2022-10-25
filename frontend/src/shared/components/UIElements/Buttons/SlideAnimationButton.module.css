@@ -21,6 +21,15 @@
     cursor: pointer;
 }
 
+.btn button:disabled,
+.btn button:hover:disabled,
+.btn button:active:disabled {
+    background: #ccc;
+    color: #979797;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
 
 .view {
     width: 100%;
@@ -58,3 +67,14 @@
     padding: 0;
     cursor: pointer;
 }
+
+#btn-text-disabled {
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    cursor: not-allowed;
+}
+
