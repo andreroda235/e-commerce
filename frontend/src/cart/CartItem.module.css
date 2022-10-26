@@ -8,8 +8,8 @@
 }
 
 .item img {
-    width: 150px;
-    height: 150px;
+    width: 135px;
+    height: 135px;
     object-fit: contain;
 }
 
@@ -46,8 +46,8 @@
 }
 
 #cart-item-quantity {
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 50%;
     background-color: var(--highlightColor);
     margin: 0;
@@ -60,6 +60,8 @@
     color: white;
     font-size: medium;
     font-weight: bold;
+    padding: 0;
+    margin: 0;
 }
 
 .item button {

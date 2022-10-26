@@ -19,17 +19,21 @@ const SlideAnimiationButton = ({title, onClick, disabled}) => {
     }
 
     return (
-        <div className={classes.btn} onMouseEnter={onButtonHover} onMouseLeave={onButtonHoverExit}>
-            <button disabled={disabled} onClick={onClickHandler}>
+        <button
+            className      ={classes.btn} 
+            onClick        ={onClickHandler} 
+            onMouseEnter   ={onButtonHover} 
+            onMouseLeave   ={onButtonHoverExit}>
+            <div className={classes.animation} disabled={disabled}>
                 {!disabled && <div className={classes.view}>
                     <div style={{transition: 'transform 0.3s', transform   : `translateX(${-slide}00%)`}} className={classes.slider}>
                         <div className={classes.purple}/>
                         <div className={classes.magenta}/>
                     </div>
                 </div>}
-            </button>
+            </div>
             <p id={disabled ? classes['btn-text-disabled'] : classes['btn-text']}>{title}</p>
-        </div>
+        </button>
     );
 }
 

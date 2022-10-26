@@ -18,6 +18,11 @@ const CartDrawerContent = () => {
         navigate('/shopping/checkout');
     };
 
+    const toCartReviewHandler = () => {
+        navigate('/shopping/cart-review');
+        console.log('review');
+    };
+
     return (
         <div className={classes.content}>
             <div className={classes.banner}>
@@ -43,10 +48,16 @@ const CartDrawerContent = () => {
                 ))}
             </ul>}
             {!cartEmpty && 
-             <SlideAnimiationButton 
-                title   ={'Checkout'}
-                onClick ={toCheckoutHandler}
-                />}
+            <div className={classes['btn-group']}>
+                <SlideAnimiationButton
+                    title   ={'Review Cart'}
+                    onClick ={toCartReviewHandler}
+                    />
+                <SlideAnimiationButton 
+                    title   ={'Checkout'}
+                    onClick ={toCheckoutHandler}
+                    />
+            </div>}
         </div>
     );
 };

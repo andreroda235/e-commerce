@@ -34,8 +34,7 @@
 }
 .content ul {
     list-style: none;
-    margin: 0;
-    padding: 16px;
+    padding: 0 16px;
     /* max-height: 100%; */
     max-height: 100%;
     width: 100%;
@@ -47,65 +46,11 @@
     background: transparent; /* make scrollbar transparent */
 }
 
-.checkout {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.checkout button {
-    outline: none;
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    height: 50px;
-    color: white;
-    font-weight: bolder;
-    font-size: large;
-    position: relative;
-    cursor: pointer;
-}
-
-
-.view {
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    overflow-x: hidden;
-    border-radius: 2px;
-}
-
-.slider {
-    width: 100%;
-    height: 100%;
+.btn-group {
     display: flex;
     flex-direction: row;
-}
-
-.purple {
-    min-width: 100%;
-    height: 100%;
-    background-color: var(--highlightColor);
-}
-
-.magenta {
-    min-width: 100%;
-    height: 100%;
-    background-color: var(--highlightMagenta);
-}
-
-#checkout-text {
-    position: absolute;
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
+    align-items: center;
+    width: 100%;
 }
 
 

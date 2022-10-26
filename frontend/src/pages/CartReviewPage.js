@@ -38,7 +38,8 @@ const CartReviewPage = () => {
     return (
         <Page>
             <Grid gridClass={classes.grid}>
-                {cart.totalQuantity > 0 ? <Grid gridClass={classes.rows}>
+                {cart.totalQuantity > 0 ? 
+                <Grid gridClass={classes.rows}>
                     <CartReviewTable/>
                     <Card className={classes['bottom-menu']}>
                         <button onClick={returnToShoppingHandler} className={classes['go-back']}>
