@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 /* import {AuthContext} from '../../context/auth-context';
@@ -9,10 +10,8 @@ import AccountButton from "./AccountMenu/AccountButton";
 import classes from './NavLinks.module.css'
 
 const NavLinks = () => {
-    /* const auth = useContext(AuthContext); */
-    const auth = {
-        isLoggedIn: true
-    };
+    const auth = useSelector(state => state.auth);
+    console.log(auth);
 
     return (
         <ul className={classes['nav-links']}>

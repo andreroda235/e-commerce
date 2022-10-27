@@ -10,6 +10,7 @@ import ShoppingPage from "./pages/ShoppingPage";
 import ItemDetailPage from "./pages/ItemDetailPage";
 import Content from "./pages/Content";
 import CartReviewPage from "./pages/CartReviewPage";
+import AuthenticationPage from "./pages/AuthenticationPage";
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
   let routes = (
     <>
       <Route path="/" exact element={<HomePage/>}/>
+      <Route path="/auth" exact element={<AuthenticationPage/>}/>
       <Route path="/shopping/:category/:subcategory" exact element={<ShoppingPage/>}/>
       <Route path="/shopping/item-detail/:itemId" exact element={<ItemDetailPage/>}/>
       <Route path="/shopping/cart-review" exact element={<CartReviewPage/>}/>

@@ -16,8 +16,9 @@ import SideDrawerContent from "./SideDrawerContent";
 
 
 const MainNavigation = () => {
-    const drawerIsOpen = useSelector((state) => state.ui.menu.sideMenuIsOpen);
-    const dispatch   = useDispatch();
+    const drawerIsOpen = useSelector(state => state.ui.menu.sideMenuIsOpen);
+    const auth         = useSelector(state => state.auth);
+    const dispatch     = useDispatch();
 
     const toggleDrawerHandler = () => {
         dispatch(toggleSideMenu());
@@ -29,7 +30,7 @@ const MainNavigation = () => {
             <SideDrawer show={drawerIsOpen} left>
                 <SideDrawerContent toggleDrawer={toggleDrawerHandler}/>
             </SideDrawer>
-            <MainHeader>
+            <MainHeader key={window.location.pathname}>
             <div className={classes['group-logo-menu']}>
                 <button className={classes['menu-btn']} onClick={toggleDrawerHandler}>
                     <span></span>
@@ -40,7 +41,6 @@ const MainNavigation = () => {
                     <Link to="/">
                         <img src={logo} alt="e-commerce"/>
                     </Link>
-
                 </div>
             </div>
                 <nav className={classes['header-nav']}>

@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import CartItem from './CartItem';
@@ -7,20 +7,23 @@ import SlideAnimiationButton from '../shared/components/UIElements/Buttons/Slide
 import classes from './CartDrawerContent.module.css';
 
 import cartIcon from '../assets/shopping_cart_icon_172223.png';
+import { toggleCart } from '../redux/ui-slice';
 
 
 const CartDrawerContent = () => {
+    const dispatch  = useDispatch();
     const cart      = useSelector((state) => state.cart);
     const cartEmpty = cart.items.length === 0;
     const navigate  = useNavigate();
 
     const toCheckoutHandler = () => {
         navigate('/shopping/checkout');
+        dispatch(toggleCart());
     };
 
     const toCartReviewHandler = () => {
         navigate('/shopping/cart-review');
-        console.log('review');
+        dispatch(toggleCart());
     };
 
     return (

@@ -32,6 +32,6 @@ export const uiSlice = createSlice({
     }
 });
 
-export const { toggleCart, toggleSideMenu, toggleAccMenu } = uiSlice.actions
+export const { toggleCart, toggleSideMenu, toggleAccMenu } = uiSlice.actions;
   
-export default uiSlice.reducer
+export default uiSlice.reducer;

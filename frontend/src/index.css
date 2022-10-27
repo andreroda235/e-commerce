@@ -96,3 +96,9 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+.form-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
