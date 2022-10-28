@@ -8,9 +8,11 @@ import CustomButton from "../shared/components/UIElements/Buttons/CustomButton";
 import Card from "../shared/components/UIElements/Card";
 
 import classes from "./LoginForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [formState, inputHandler] = useForm(
     {
@@ -29,6 +31,8 @@ const LoginForm = () => {
     const formSubmmitHandler = (e) => {
         e.preventDefault();
         dispatch(login());
+        navigate('/');
+
     };
 
     return (
