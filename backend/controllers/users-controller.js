@@ -22,7 +22,7 @@ const { jwtKey } = require("../util/encryption");
     .json({ users: users.map((user) => user.toObject({ getters: true })) });
 }; */
 
-/* const signupUser = async (req, res, next) => {
+const signupUser = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())
     return next(
@@ -31,7 +31,7 @@ const { jwtKey } = require("../util/encryption");
         422
         ));
 
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   let existingUser;
   try {
@@ -60,11 +60,13 @@ const { jwtKey } = require("../util/encryption");
   }
 
   const newUser = new User({
-    name,
+    firstName,
+    lastName,
     email,
     password: hashedPassword,
     image: req.file.path,
-    places: [],
+    cart: [],
+    user_data: null
   });
 
   try {
@@ -97,7 +99,7 @@ const { jwtKey } = require("../util/encryption");
     email: newUser.email,
     token  
   });
-}; */
+};
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -157,6 +159,6 @@ const login = async (req, res, next) => {
   });
 };
 
-/* exports.getUsers    = getUsers;
-exports.signupUser  = signupUser; */
+/* exports.getUsers    = getUsers; */
+exports.signupUser  = signupUser;
 exports.login       = login;

@@ -41,6 +41,7 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An unknown error occurred!'});
 });
 
+//paste the linnk when the server starts
 mongoose.connect('mongodb+srv://andreroda235:3yKdive4ymfcH3iJ@simple-app-cluster.0qbj7eb.mongodb.net/mern?retryWrites=true&w=majority')
         .then(() => {
             app.listen(5000);

@@ -12,13 +12,14 @@ const userSchema = new Schema({
     cart:          [{
                         type: mongoose.Types.ObjectId,
                         required: true,
+                        ref: 'Item'
 
                     }],
-    places:        [{
+    user_data:      {
                         type: mongoose.Types.ObjectId, 
                         required: true,
-                        ref: 'Place'
-                   }]
+                        ref: 'User_Data'
+                    }
 });
 
 userSchema.plugin(uniqueValidator);
