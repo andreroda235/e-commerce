@@ -27,10 +27,6 @@ const RegisterForm = () => {
                 value   : "",
                 isValid : false,
             },
-            address: {
-                value   : "",
-                isValid : false
-            },
             /* image : {
                 value   : null,
                 isValid : false
@@ -88,17 +84,6 @@ const RegisterForm = () => {
                     placeholder ="password"
                     validators  ={[VALIDATOR_MINLENGTH(8)]}
                     errorText   ="Password must be at least 8 characters long."
-                    onInput={inputHandler}
-                />
-                {/*maybe add a google addressd thing here*/}
-                <Input
-                    id          ="address"
-                    label       ="Address"
-                    element     ="input"
-                    type        ="text"
-                    placeholder ="street, street code, postal code, city"
-                    validators  ={[VALIDATOR_REQUIRE()]}
-                    errorText   ="Please type a valid address."
                     onInput={inputHandler}
                 />
                 <CustomButton
