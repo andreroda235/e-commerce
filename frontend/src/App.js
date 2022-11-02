@@ -1,9 +1,14 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+
+import { CONTENT_TYPE_JSON, GET_USER_CART } from "./shared/util/request-config";
+import { useHttpClient } from "./shared/hooks/http-hook";
+import { loadCart, resetCart } from "./redux/cart-slice";
+import { login, logout } from "./redux/auth-slice";
 
 import { FlyoutHook } from "./shared/components/Navigation/AccountMenu/AccountFlyout";
 import { BackdropHook } from "./shared/components/UIElements/Backdrop2";
-
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import HomePage from "./pages/HomePage";
 import ShoppingPage from "./pages/ShoppingPage";
@@ -11,8 +16,42 @@ import ItemDetailPage from "./pages/ItemDetailPage";
 import Content from "./pages/Content";
 import CartReviewPage from "./pages/CartReviewPage";
 import AuthenticationPage from "./pages/AuthenticationPage";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 
 const App = () => {
+  const { isLoading, sendRequest } = useHttpClient();
+  const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  if(auth.token){
+    const header = {
+      ...CONTENT_TYPE_JSON,
+      Authorization: `Bearer ${auth.token}`
+    };
+    const payload = {userId: auth.userId};
+    const request = {
+        ...GET_USER_CART(auth.userId),
+        ...header,
+        payload
+    };
+    sendRequest(request).then(response => {
+      const data = response.data;
+      if(data.auth === false){
+        dispatch(logout());
+        return;
+      } else
+        dispatch(login(auth.token, auth.userId));
+      if (data.cart.items.length > 0){
+        const cartData = {
+          items         : data.cart.items,
+          totalQuantity : data.cart.totalQuantity,
+          totalPrice    : data.cart.totalPrice
+        };
+        dispatch(loadCart(cartData));
+      } else 
+        dispatch(resetCart());
+    });
+  };
 
 
   let routes = (
@@ -25,7 +64,8 @@ const App = () => {
     </>
   );
 
-  return (
+  return isLoading ? 
+    <LoadingSpinner/> :
     <BrowserRouter>
       <MainNavigation/>
       <main>
@@ -38,7 +78,7 @@ const App = () => {
         </Content>
       </main>
     </BrowserRouter>
-  );
+  ;
 }
 
 export default App;

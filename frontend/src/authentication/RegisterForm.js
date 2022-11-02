@@ -1,14 +1,23 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../shared/util/validators";
 import { useForm } from "../shared/hooks/form-hook";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import { login } from "../redux/auth-slice";
+import { CONTENT_TYPE_JSON, requestConfig, SIGNUP_USER } from "../shared/util/request-config";
 
 import Input from "../shared/FormElements/Input";
 import CustomButton from "../shared/components/UIElements/Buttons/CustomButton";
 import Card from "../shared/components/UIElements/Card";
 
 import classes from './RegisterForm.module.css';
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 
 const RegisterForm = () => {
-
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formState, inputHandler] = useForm(
         {
             firstName: {
@@ -37,9 +46,27 @@ const RegisterForm = () => {
 
     const formSubmmitHandler = (e) => {
         e.preventDefault();
-        localStorage.setItem('isLoggedIn', true);
-        console.log('registered!');
-        console.log(formState);
+
+        const payload = {
+            firstName : formState.inputs.firstName.value,
+            lastName  : formState.inputs.lastName.value,
+            email     : formState.inputs.email.value,
+            password  : formState.inputs.password.value
+        };
+        const request = {
+            ...SIGNUP_USER,
+            ...CONTENT_TYPE_JSON,
+            payload
+        };
+        sendRequest(request).then((response) => {
+            console.log(response);
+            const payload = {
+                token: response.data.token,
+                userId: response.data.userId
+            }
+            dispatch(login(payload));
+            navigate('/');
+        });
     };
 
     return (
@@ -86,12 +113,15 @@ const RegisterForm = () => {
                     errorText   ="Password must be at least 8 characters long."
                     onInput={inputHandler}
                 />
+                {isLoading ? 
+                <LoadingSpinner/>
+                :
                 <CustomButton
                     type="submit"
                     disabled={!formState.isValid}
                 >
                 Register
-                </CustomButton>
+                </CustomButton>}
             </form>
         </Card>
     );

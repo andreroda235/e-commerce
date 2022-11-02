@@ -37,6 +37,7 @@ const signupUser = async (req, res, next) => {
   try {
     existingUser = await User.findOne({ email: email });
   } catch (error) {
+    console.log('here 1');
     return next(new HttpError(
         "Signing up failed, please try again.", 
         500
@@ -64,7 +65,7 @@ const signupUser = async (req, res, next) => {
     lastName,
     email,
     password: hashedPassword,
-    image: req.file.path,
+    image: null,
     cart: [],
     user_data: null
   });
@@ -73,7 +74,7 @@ const signupUser = async (req, res, next) => {
     await newUser.save();
   } catch (error) {
     return next(new HttpError(
-        "Signing up failed, please try again.", 
+        "Signing up failed, please try again." + error, 
         500
         ));
   }
@@ -92,7 +93,6 @@ const signupUser = async (req, res, next) => {
       500
       ));
   }
-
 
   res.status(200).json({ 
     userId: newUser.id,

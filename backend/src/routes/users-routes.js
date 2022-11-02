@@ -8,13 +8,14 @@ const router = express.Router();
 
 /* router.get('/', usersControllers.getUsers); */
 
-/* router.post('/signup',
-    fileUpload.single('image'),
+router.post('/signup',
+    /* fileUpload.single('image'), */
     [
-        check('name').not().isEmpty(),
+        check('firstName').not().isEmpty(),
+        check('lastName').not().isEmpty(),
         check('email').normalizeEmail().isEmail(),
-        check('password').isLength({min: 6})
-    ], usersControllers.signupUser); */
+        check('password').isLength({min: 8})
+    ], usersControllers.signupUser);
 
 router.post('/login', usersControllers.login);
 

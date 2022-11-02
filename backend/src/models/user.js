@@ -8,16 +8,16 @@ const userSchema = new Schema({
     lastName:      {type: String, required: true},
     email:         {type: String, required: true, unique: true},
     password:      {type: String, required: true, minlength: 6},
-    image:         {type: String, required: true},
+    image:         {type: String},
     cart:          [{
                         type: mongoose.Types.ObjectId,
-                        required: true,
+                       /*  required: true, */
                         ref: 'Item'
 
                     }],
     user_data:      {
                         type: mongoose.Types.ObjectId, 
-                        required: true,
+                        /* required: true, */
                         ref: 'User_Data'
                     }
 });

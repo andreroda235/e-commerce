@@ -1,18 +1,23 @@
+import { useNavigate } from "react-router-dom";
+
 import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "../shared/util/validators";
 import { useForm } from "../shared/hooks/form-hook";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/auth-slice";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import { CONTENT_TYPE_JSON, LOGIN_USER } from "../shared/util/request-config";
 
 import Input from "../shared/FormElements/Input";
 import CustomButton from "../shared/components/UIElements/Buttons/CustomButton";
 import Card from "../shared/components/UIElements/Card";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 
 import classes from "./LoginForm.module.css";
-import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
     const [formState, inputHandler] = useForm(
     {
@@ -30,8 +35,24 @@ const LoginForm = () => {
 
     const formSubmmitHandler = (e) => {
         e.preventDefault();
-        dispatch(login());
-        navigate('/');
+
+        const payload = {
+            email    : formState.inputs.email.value,
+            password : formState.inputs.password.value
+        };
+        const request = {
+            ...LOGIN_USER,
+            ...CONTENT_TYPE_JSON,
+            payload
+        };
+        sendRequest(request).then((response) => {
+            const payload = {
+                token  : response.data.token,
+                userId : response.data.userId
+            }
+            dispatch(login(payload));
+            navigate('/');
+        });
 
     };
 
@@ -59,13 +80,16 @@ const LoginForm = () => {
                     errorText   ="Please type a valid password."
                     onInput={inputHandler}
                 />
+                {isLoading ? 
+                <LoadingSpinner/>
+                :
                 <CustomButton
                     type="submit"
                     form="login-form"
                     disabled={!formState.isValid}
                 >
                 Login
-                </CustomButton>
+                </CustomButton>}
             </form>
         </Card>
     );
