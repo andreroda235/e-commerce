@@ -27,6 +27,7 @@ app.use((req, res, next) => {
 // /api/users => route filter
 app.use('/api/users', usersRoutes);
 
+//token based routing
 app.use((req, res, next) => {
     const token = req.headers['x-access-token'];
     if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
@@ -34,9 +35,9 @@ app.use((req, res, next) => {
     jwt.verify(token, /* process.env.SECRET */jwtKey, (err, decoded) => {
       if (err)
         return res.status(403).json({ auth: false, message: 'Failed to authenticate token.' });
+        req.userId = decoded.id;
     });
     
-    req.userId = decoded.id;
     next();
 });
 

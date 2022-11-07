@@ -3,7 +3,7 @@ import { uiActions } from '../store/ui-slice'; */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {toggleCart} from '../redux/ui-slice';
+import {toggleAccMenu, toggleCart} from '../redux/ui-slice';
 
 import SideDrawer from '../shared/components/Navigation/SideDrawer';
 import Backdrop from '../shared/components/UIElements/Backdrop';
@@ -23,7 +23,7 @@ const CartButton = (props) => {
     const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
     useEffect(() => {
-        if (totalItems.length === 0) {
+        if (totalItems === 0) {
           return;
         }
         setBtnIsHighlighted(true);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,36 +23,39 @@ const App = () => {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
-  if(auth.token){
-    const header = {
-      ...CONTENT_TYPE_JSON,
-      Authorization: `Bearer ${auth.token}`
-    };
-    const payload = {userId: auth.userId};
-    const request = {
-        ...GET_USER_CART(auth.userId),
-        ...header,
-        payload
-    };
-    sendRequest(request).then(response => {
-      const data = response.data;
-      if(data.auth === false){
-        dispatch(logout());
-        return;
-      } else
-        dispatch(login(auth.token, auth.userId));
-      if (data.cart.items.length > 0){
-        const cartData = {
-          items         : data.cart.items,
-          totalQuantity : data.cart.totalQuantity,
-          totalPrice    : data.cart.totalPrice
+  useEffect(() => {
+    if(!auth.isLoggedIn){
+      if(auth.remember){
+        const header = {
+          ...CONTENT_TYPE_JSON,
+          Authorization: `Bearer ${auth.token}`
         };
-        dispatch(loadCart(cartData));
-      } else 
-        dispatch(resetCart());
-    });
-  };
-
+        const data = {userId: auth.userId};
+        const request = {
+            ...GET_USER_CART(auth.userId),
+            ...header,
+            data
+        };
+        sendRequest(request).then(response => {
+          const data = response.data;
+          if(data.auth === false){
+            dispatch(logout());
+            return;
+          } else
+            dispatch(login(auth.token, auth.userId));
+          if (data.cart.items.length > 0){
+            const cartData = {
+              items         : data.cart.items,
+              totalQuantity : data.cart.totalQuantity,
+              totalPrice    : data.cart.totalPrice
+            };
+            dispatch(loadCart(cartData));
+          } else 
+            dispatch(resetCart());
+        });
+      };
+    }
+  });
 
   let routes = (
     <>

@@ -27,7 +27,7 @@ const signupUser = async (req, res, next) => {
   if (!errors.isEmpty())
     return next(
       new HttpError(
-        "Invalid credentials passed, please checck your data: " + errors,
+        "Invalid credentials passed, please checck your data: " + JSON.stringify(errors),
         422
         ));
 
@@ -37,7 +37,6 @@ const signupUser = async (req, res, next) => {
   try {
     existingUser = await User.findOne({ email: email });
   } catch (error) {
-    console.log('here 1');
     return next(new HttpError(
         "Signing up failed, please try again.", 
         500
@@ -66,7 +65,11 @@ const signupUser = async (req, res, next) => {
     email,
     password: hashedPassword,
     image: null,
-    cart: [],
+    cart: {
+      totalItems : 0,
+      totalPrice : 0,
+      items      : []
+    },
     user_data: null
   });
 
@@ -103,7 +106,6 @@ const signupUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
-
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });

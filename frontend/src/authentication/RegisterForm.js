@@ -47,19 +47,19 @@ const RegisterForm = () => {
     const formSubmmitHandler = (e) => {
         e.preventDefault();
 
-        const payload = {
+        const data = JSON.stringify({
             firstName : formState.inputs.firstName.value,
             lastName  : formState.inputs.lastName.value,
             email     : formState.inputs.email.value,
             password  : formState.inputs.password.value
-        };
+        });
         const request = {
             ...SIGNUP_USER,
-            ...CONTENT_TYPE_JSON,
-            payload
+            headers: CONTENT_TYPE_JSON,
+            data
         };
+        console.log(request);
         sendRequest(request).then((response) => {
-            console.log(response);
             const payload = {
                 token: response.data.token,
                 userId: response.data.userId

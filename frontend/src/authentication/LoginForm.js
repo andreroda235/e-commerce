@@ -36,14 +36,14 @@ const LoginForm = () => {
     const formSubmmitHandler = (e) => {
         e.preventDefault();
 
-        const payload = {
+        const data = JSON.stringify({
             email    : formState.inputs.email.value,
             password : formState.inputs.password.value
-        };
+        });
         const request = {
             ...LOGIN_USER,
-            ...CONTENT_TYPE_JSON,
-            payload
+            headers: CONTENT_TYPE_JSON,
+            data
         };
         sendRequest(request).then((response) => {
             const payload = {
@@ -78,6 +78,14 @@ const LoginForm = () => {
                     placeholder ="password"
                     validators  ={[VALIDATOR_MINLENGTH(8)]}
                     errorText   ="Please type a valid password."
+                    onInput={inputHandler}
+                />
+                <Input
+                    id          ="rememberme"
+                    label       ="Remember me"
+                    element     ="input"
+                    type        ="checkbox"
+                    validators  ={[]}
                     onInput={inputHandler}
                 />
                 {isLoading ? 

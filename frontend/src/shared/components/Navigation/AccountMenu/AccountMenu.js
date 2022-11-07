@@ -1,14 +1,18 @@
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import classes from './AccountMenu.module.css';
 
-export const MenuItem = ({item, link, logout}) => {
+export const MenuItem = ({item, link, signout}) => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const itemClickHandler = () => {
-        if(logout)
-          return console.log(logout);
-        navigate(link);
+        if(signout){
+            dispatch({type: 'logout'});
+            navigate(link);
+        }
     };
 
     return (
@@ -34,12 +38,14 @@ const menuItems = [
     },
 ];
 
+
 const AccountMenu = () => {
     return (
         <div className={classes.menu}>
             <ul>
+                {/* separate these manually instead of mapping */}
                 {menuItems.map((item, index) => {
-                    const logout = index === menuItems.length ? {logout: true} : {};
+                    const logout = index === menuItems.length -1 ? {signout: true} : {};
                     return <MenuItem
                                 key  ={'account-menu' + index}
                                 item ={item.item}
