@@ -17,6 +17,7 @@ import Content from "./pages/Content";
 import CartReviewPage from "./pages/CartReviewPage";
 import AuthenticationPage from "./pages/AuthenticationPage";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+import AdminItemPage from "./pages/AdminItemPage";
 
 const App = () => {
   const { isLoading, sendRequest } = useHttpClient();
@@ -57,15 +58,43 @@ const App = () => {
     }
   });
 
-  let routes = (
+  const publicRoutes = (
     <>
       <Route path="/" exact element={<HomePage/>}/>
-      <Route path="/auth" exact element={<AuthenticationPage/>}/>
       <Route path="/shopping/:category/:subcategory" exact element={<ShoppingPage/>}/>
       <Route path="/shopping/item-detail/:itemId" exact element={<ItemDetailPage/>}/>
       <Route path="/shopping/cart-review" exact element={<CartReviewPage/>}/>
     </>
   );
+
+  const signupRoute = <Route path="/auth" exact element={<AuthenticationPage/>}/>;
+
+  const adminRoutes = (
+    <>
+      <Route path="/admin/*" exact element={<AdminItemPage/>}/>
+    </>
+  );
+
+  let routes = publicRoutes;
+
+  console.log('isLoggedIn ' + auth.isLoggedIn);
+
+  if(!auth.isLoggedIn)
+    routes = (
+      <>
+        {routes}
+        {signupRoute}
+      </>
+    );
+  
+  if(auth.admin)
+      routes = (
+        <>
+          {routes}
+          {adminRoutes}
+        </>
+      );
+
 
   return isLoading ? 
     <LoadingSpinner/> :

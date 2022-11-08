@@ -11,10 +11,12 @@ import classes from './NavLinks.module.css'
 
 const NavLinks = () => {
     const auth = useSelector(state => state.auth);
-    console.log(auth);
 
     return (
         <ul className={classes['nav-links']}>
+            {!auth.isLoggedIn && auth.admin && <li>
+                <NavLink to='/admin'>Admin</NavLink>
+            </li>}
             <li>
                 <CartButton/>
             </li>

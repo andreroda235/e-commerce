@@ -1,14 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import authSlice from './auth-slice';
+import authReducer from './auth-slice';
 import cartReducer from './cart-slice';
-import uiSlice from './ui-slice';
+import uiReducer from './ui-slice';
 
 
 const combinedReducer = combineReducers({
     cart : cartReducer,
-    ui   : uiSlice,
-    auth : authSlice
+    ui   : uiReducer,
+    auth : authReducer
 });
 
 const rootReducer = (state, action) => {
@@ -23,6 +23,7 @@ const store = configureStore({
 });
 
 store.subscribe(()=>{
+  console.log('saving... ' + JSON.stringify(store.getState()));
   localStorage.setItem('reduxState', JSON.stringify(store.getState()));
 });
 

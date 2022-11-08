@@ -29,6 +29,10 @@ const LoginForm = () => {
             value: "",
             isValid: false,
         },
+        rememberme: {
+            value: false,
+            isValid: true,
+        }
         },
         false
     );
@@ -37,8 +41,9 @@ const LoginForm = () => {
         e.preventDefault();
 
         const data = JSON.stringify({
-            email    : formState.inputs.email.value,
-            password : formState.inputs.password.value
+            email      : formState.inputs.email.value,
+            password   : formState.inputs.password.value,
+            rememberme : formState.inputs.rememberme.value
         });
         const request = {
             ...LOGIN_USER,
@@ -80,14 +85,14 @@ const LoginForm = () => {
                     errorText   ="Please type a valid password."
                     onInput={inputHandler}
                 />
-                <Input
-                    id          ="rememberme"
-                    label       ="Remember me"
-                    element     ="input"
-                    type        ="checkbox"
-                    validators  ={[]}
-                    onInput={inputHandler}
-                />
+                <div className="center" style={{marginBottom: '16px'}}>
+                    <label for='rememberme'>Remember me</label>
+                    <input 
+                        id="rememberme" 
+                        type='checkbox' 
+                        onChange={(e) => (inputHandler('rememberme', e.target.checked, true))}/>
+                </div>
+
                 {isLoading ? 
                 <LoadingSpinner/>
                 :

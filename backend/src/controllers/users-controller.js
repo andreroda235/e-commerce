@@ -105,7 +105,7 @@ const signupUser = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, rememberme} = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -146,7 +146,7 @@ const login = async (req, res, next) => {
       email: existingUser.email
     },
     jwtKey,
-    { expiresIn: '1h'});
+    { expiresIn: rememberme ? '15d' : '1h'});
   } catch (error) {
     return next(new HttpError(
       'Login failed unexpectadly. Please try again.',
