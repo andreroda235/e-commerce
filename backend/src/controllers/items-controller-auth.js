@@ -16,7 +16,6 @@ const createItem = async (req, res, next) => {
             ));
 
     const userId = req.body.userId;
-    console.log(req.body);
     let existingUser;
     try {
         existingUser = await User.findById({ '_id' : userId});
