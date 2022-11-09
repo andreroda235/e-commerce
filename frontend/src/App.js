@@ -87,7 +87,7 @@ const App = () => {
       </>
     );
   
-  if(auth.admin)
+  if(auth.admin && auth.isLoggedIn)
       routes = (
         <>
           {routes}

@@ -70,6 +70,7 @@ const signupUser = async (req, res, next) => {
       totalPrice : 0,
       items      : []
     },
+    admin: false,
     user_data: null
   });
 

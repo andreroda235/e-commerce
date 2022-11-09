@@ -2,13 +2,17 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
-const { reviewSchema } = require('./review');
-
 const item_dataSchema = new Schema({
     fullDescription: {type: String, required: true},
     //top 10 reviews
     reviews:        [ 
-                        reviewSchema,
+                        [{
+                            username:       {type: String, required: true, unique: true},
+                            comment:        {type: String, required: true},
+                            stars:          {type: Number, required: true, min: 0, max: 5},
+                            likes:          {type: Number, required: true},
+                            dislikes:       {type: Number, required: true},
+                        }],
                         {
                             type: mongoose.Types.ObjectId, 
                             required: true,

@@ -1,11 +1,20 @@
 import { useForm } from "../shared/hooks/form-hook";
-import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../shared/util/validators";
+import { VALIDATOR_MAXLENGTH, VALIDATOR_REQUIRE } from "../shared/util/validators";
+import { AUTHORIZATION_BEARER, CONTENT_TYPE_JSON, CREATE_ITEM } from "../shared/util/request-config";
+import { useHttpClient } from "../shared/hooks/http-hook";
 
 import CustomButton from "../shared/components/UIElements/Buttons/CustomButton";
 import Card from "../shared/components/UIElements/Card";
 import Input from "../shared/FormElements/Input";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
+
+import classes from './NewItem.module.css';
+import { useSelector } from "react-redux";
 
 const NewItem = () => {
+
+    const auth = useSelector(state => state.auth);
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
     const [formState, inputHandler] = useForm(
         {
@@ -33,17 +42,47 @@ const NewItem = () => {
                 value: "",
                 isValid: false,
             },
+            category: {
+                value: "",
+                isValid: false,
+            },
+            subCategory: {
+                value: "",
+                isValid: false,
+            },
+        
         },
             false
         );
 
     const formSubmmitHandler = (e) => {
         e.preventDefault();
-        console.log(formState);
+
+        const data = JSON.stringify({
+            title       : formState.inputs.title.value,
+            briefDesc   : formState.inputs.briefDesc.value,
+            price       : formState.inputs.price.value,
+            discount    : formState.inputs.discount.value,
+            stock       : formState.inputs.stock.value,
+            description : formState.inputs.description.value,
+            category    : formState.inputs.category.value,
+            subCategory : formState.inputs.subCategory.value,
+        });
+        const request = {
+            ...CREATE_ITEM,
+            headers: {
+                ...CONTENT_TYPE_JSON,
+                ...AUTHORIZATION_BEARER(auth.token)
+            },
+            data
+        };
+        sendRequest(request).then((response) => {
+            console.log(response.data.item);
+        });
     };
 
     return(
-        <Card>
+        <Card className={classes['new-item']}>
             <form className="form-start" id="new-item-form" onSubmit={formSubmmitHandler}>
                 <Input
                     id          ="title"
@@ -61,7 +100,7 @@ const NewItem = () => {
                     element     ="input"
                     type        ="text"
                     placeholder ="a brief description"
-                    validators  ={[VALIDATOR_MINLENGTH(100)]}
+                    validators  ={[VALIDATOR_MAXLENGTH(100), VALIDATOR_REQUIRE()]}
                     errorText   ="Please type a valid description."
                     onInput={inputHandler}
                 />
@@ -97,20 +136,43 @@ const NewItem = () => {
                 <Input
                     id          ="description"
                     label       ="Description"
-                    element     ="input"
                     type        ="text"
+                    rows        ={10}
                     placeholder ="full description"
                     validators  ={[VALIDATOR_REQUIRE()]}
                     errorText   ="Please type a valid description."
                     onInput={inputHandler}
                 />
-                <CustomButton 
+                <Input
+                    id          ="category"
+                    label       ="Category"
+                    element     ="input"
+                    type        ="text"
+                    placeholder ="category"
+                    validators  ={[VALIDATOR_REQUIRE()]}
+                    errorText   ="Please type a valid category."
+                    onInput={inputHandler}
+                />
+                <Input
+                    id          ="subCategory"
+                    label       ="Sub-Category"
+                    element     ="input"
+                    type        ="text"
+                    placeholder ="sub-category"
+                    validators  ={[VALIDATOR_REQUIRE()]}
+                    errorText   ="Please type a valid sub-category."
+                    onInput={inputHandler}
+                />
+                {isLoading ? 
+                <LoadingSpinner/>
+                :
+                <CustomButton
                     type="submit"
                     form="new-item-form"
                     disabled={!formState.isValid}
                 >
-                Submit!
-                </CustomButton>
+                Login
+                </CustomButton>}
             </form>
         </Card>
     );

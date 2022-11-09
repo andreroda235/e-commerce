@@ -4,14 +4,20 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 /* const path = require('path'); */
-
-const usersRoutes = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
 const { jwtKey } = require('./util/encryption');
+
+//public routes
+const usersRoutes = require('./routes/users-routes');
+const itemsRoutes = require('./routes/item-routes');
+
+//token routes
+const authItemsRoutes = require('./routes/item-routes-auth');
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,22 +30,33 @@ app.use((req, res, next) => {
 
 
 
-// /api/users => route filter
-app.use('/api/users', usersRoutes);
+//public api routing
 
-//token based routing
+app.use('/api/users', usersRoutes);
+app.use('/api/items', itemsRoutes);
+
+//token based api routing
+
+//token validation
 app.use((req, res, next) => {
-    const token = req.headers['x-access-token'];
-    if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
+    const authHeader = req.headers['authorization']; /* req.headers['x-access-token']; */
+    if (!authHeader) return res.status(401).json({ auth: false, message: 'No token provided.' });
     
+    const token = authHeader.split(/\b\s+/)[1];
     jwt.verify(token, /* process.env.SECRET */jwtKey, (err, decoded) => {
       if (err)
         return res.status(403).json({ auth: false, message: 'Failed to authenticate token.' });
-      req.userId = decoded.id;
+      /* req.userId = decoded.id; */
+      req.body.userId = decoded.userId;
+      console.log(req.body.userId);
     });
     
     next();
 });
+
+app.use('/api/items', authItemsRoutes);
+
+
 
 //Is only reached if all other endpoints don't get a response
 app.use((req, res, next) => {

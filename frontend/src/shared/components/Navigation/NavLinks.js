@@ -14,7 +14,7 @@ const NavLinks = () => {
 
     return (
         <ul className={classes['nav-links']}>
-            {!auth.isLoggedIn && auth.admin && <li>
+            {auth.isLoggedIn && auth.admin && <li>
                 <NavLink to='/admin'>Admin</NavLink>
             </li>}
             <li>

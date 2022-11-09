@@ -11,6 +11,7 @@ const userSchema = new Schema({
     email:         {type: String, required: true, unique: true},
     password:      {type: String, required: true, minlength: 6},
     image:         {type: String},
+    admin:         {type: Boolean, required: true},
     cart:          {
                     totalItems:    {type: Number, required: true},
                     totalPrice:    {type: Number, required: true},

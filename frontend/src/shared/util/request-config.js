@@ -1,6 +1,11 @@
 const BASE_URL       = 'http://localhost:5000/api';
 const BASE_URL_USERS = BASE_URL + '/users';
 const BASE_URL_CART  = BASE_URL + '/cart';
+const BASE_URL_ITEMS = BASE_URL + '/items';
+
+export const AUTHORIZATION_BEARER = (token) => {
+    return {'Authorization': `Bearer ${token}`};
+};
 
 export const CONTENT_TYPE_JSON = { 'Content-Type': 'application/json' };
 
@@ -27,6 +32,11 @@ export const GET_USER_CART = (userId) => {
         ...POST,
         url: BASE_URL_CART + '/' + userId
     };
+};
+
+export const CREATE_ITEM = {
+    ...POST,
+    url: BASE_URL_ITEMS + '/new-item'
 };
 
 /* 
