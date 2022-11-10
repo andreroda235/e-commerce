@@ -6,10 +6,10 @@ const Schema = mongoose.Schema;
 const itemSchema = new Schema({
     title:          {type: String, required: true, unique: true},
     briefDesc:      {type: String, required: true},
-    stock:          {type: Number, required: true,},
+    stock:          {type: Number, required: true},
     discount:       {type: Number, required: true},
-    category:       {type: String, required: true, unique: true},
-    subCategory:    {type: String, required: true, unique: true},
+    category:       {type: String, required: true},
+    subCategory:    {type: String, required: true},
     
     price:          {type: Number, required: true},
     item_data:      [{
@@ -20,6 +20,11 @@ const itemSchema = new Schema({
 });
 
 itemSchema.plugin(uniqueValidator);
+
+itemSchema.index({ category : 1, subCategory : 1 });
+itemSchema.index({ price : 1 });
+itemSchema.index({ discount: -1 });
+itemSchema.index({ title: "text" });
 
 module.exports = mongoose.model('Item', itemSchema);
 
