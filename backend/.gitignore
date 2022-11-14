@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /src/util/location.js
+/src/util/mongodb.js
 
 # testing
 /coverage
