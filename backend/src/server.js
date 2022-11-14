@@ -76,8 +76,10 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An unknown error occurred!'});
 });
 
+//pass link in argv
+const link = process.argv[2];
 //paste the linnk when the server starts
-mongoose.connect('mongodb+srv://andreroda235:3yKdive4ymfcH3iJ@simple-app-cluster.0qbj7eb.mongodb.net/e-commerce?retryWrites=true&w=majority')
+mongoose.connect(link)
         .then(() => {
             app.listen(5000);
         })
