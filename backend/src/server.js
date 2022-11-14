@@ -76,10 +76,10 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An unknown error occurred!'});
 });
 
-//pass link in argv
-const link = process.argv[2];
+//pass uri in argv
+const uri = process.argv[2];
 //paste the linnk when the server starts
-mongoose.connect(link)
+mongoose.connect(uri)
         .then(() => {
             app.listen(5000);
         })
