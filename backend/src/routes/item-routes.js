@@ -7,5 +7,6 @@ const router = express.Router();
         
 
 router.get('/:itemId', itemsController.getItem);
+router.get('product/:category/:subCategory', itemsController.searchCategory)
 
 module.exports = router;

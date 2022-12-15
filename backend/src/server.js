@@ -13,6 +13,7 @@ const itemsRoutes = require('./routes/item-routes');
 
 //token routes
 const authItemsRoutes = require('./routes/item-routes-auth');
+const authCartRoutes = require('./routes/cart-routes-auth');
 
 const app = express();
 
@@ -48,13 +49,14 @@ app.use((req, res, next) => {
         return res.status(403).json({ auth: false, message: 'Failed to authenticate token.' });
       /* req.userId = decoded.id; */
       req.body.userId = decoded.userId;
-      console.log(req.body.userId);
+      console.log( "UID: " + req.body.userId);
     });
     
     next();
 });
 
 app.use('/api/items', authItemsRoutes);
+app.use('/api/cart', authCartRoutes);
 
 
 
