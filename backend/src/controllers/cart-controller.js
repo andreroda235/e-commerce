@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 const updateUserCart = async (req, res, next) => {
     const userId = req.body.userId;
-    const { itemId, quantity, totalItems, totalPrice } = req.body;
+    const { itemId, quantity } = req.body;
 
     let existingUser;
     try {
@@ -18,21 +18,23 @@ const updateUserCart = async (req, res, next) => {
     }
 
     if(!existingUser)
-    return next(new HttpError(
-        'User not found.',
-        404
-    ));
+        return next(new HttpError(
+            'User not found.',
+            404
+        ));
 
-    const userCart = existingUser.cart;
 
-    //db.employees.updateMany({_id:5},{$set:{ skills:["Sales Tax"]}})
-    
-    if(quantity === 0)
+    const obId = new ObjectId(itemId);
+    let result;
+    if(quantity === 0){
         try {
-           await User.updateOne(
-                {},
+          result = await existingUser.updateOne(
                 {
-                    $pull: { "cart.items": {"id" : new ObjectId(itemId)} },
+                    $pull: { "cart.items": {"itemId" : obId} }/* ,
+                    $set: {
+                        "cart.totalItems": totalItems,
+                        "cart.totalPrice": totalPrice
+                    } */
                 }
             );
         } catch (error) {
@@ -41,19 +43,26 @@ const updateUserCart = async (req, res, next) => {
                 500
             ));
         };
-    
-    
-    let result;
+
+        return res.status(200).json({});
+    }
+
     try {
-      result = await User.updateOne( 
-            { "cart.items.id": new ObjectId(itemId) },
-            { $set : {
-                    "cart.items.$.quantity": quantity,
-                    "cart.totalItems": totalItems,
-                    "cart.totalPrice": totalPrice
+    //use find first and    
+    result = await existingUser.updateOne(
+            /* {"_id": uObId, "cart.items.itemId": obId}, */
+            {   /* $addToSet : { "cart.items": { id: obId, quantity } }, */
+                $set : {
+                    "cart.items.$[elem].quantity" : quantity,
+                   /*  "cart.totalItems": totalItems,
+                    "cart.totalPrice": totalPrice */
                 }
             },
-            /* { upsert: true} */
+            { 
+                arrayFilters: [ 
+                    { "elem.itemId":  obId }
+                ],
+            }
         );
     } catch (error) {
         return next(new HttpError(
@@ -61,7 +70,30 @@ const updateUserCart = async (req, res, next) => {
             500
         ));
     }
-    console.log(result);
+
+    if(result.modifiedCount === 0) {
+        try {
+            result = await existingUser.updateOne(
+                {
+                    $push: { "cart.items" : {
+                        itemId: obId,
+                        quantity: quantity
+                    }}/* ,
+                    $set: {
+                        "cart.totalItems": totalItems,
+                        "cart.totalPrice": totalPrice
+                    } */
+                }
+            );
+        } catch (error) {
+            return next(new HttpError(
+                'Something went wrong while updating cart.' + error,
+                500
+            ));
+        }
+    }
+
+    console.log(result)
 
     res.status(200).json({});
 }; 
@@ -94,5 +126,47 @@ const getUserCart = async (req, res, next) => {
     res.status(200).json(userCart);
 };
 
-exports.updateUserCart = updateUserCart;
-exports.getUserCart    = getUserCart;
+const removeItemFromCart = async (req, res, next) => {
+
+    const userId = req.body.userId;
+    const { itemId } = req.body;
+
+    let existingUser;
+    try {
+        existingUser = await User.findById(userId);
+    } catch (error) {
+        return next(new HttpError(
+            'Fetching operation failed.' + error,
+            500
+        ));
+    }
+
+    if(!existingUser)
+        return next(new HttpError(
+            'User not found.',
+            404
+        ));
+
+    
+    const itemObId = new ObjectId(itemId);
+    let result;
+    try {
+        result = await existingUser.updateOne(
+            {
+                $pull: { "cart.items": {"itemId" : itemObId} },
+            }
+        );
+    } catch (error) {
+        return next(new HttpError(
+            'Something went wrong while removing item from cart.' + error,
+            500
+        ));
+    }
+    
+    console.log(result);
+    res.status(200).json({});
+};
+
+exports.removeItemFromCart = removeItemFromCart;
+exports.updateUserCart     = updateUserCart;
+exports.getUserCart        = getUserCart;

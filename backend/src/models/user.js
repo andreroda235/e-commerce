@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-const { cart_Schema } = require('./cart');
 
 
 const Schema = mongoose.Schema;
@@ -16,10 +15,11 @@ const userSchema = new Schema({
                     totalItems:    {type: Number, required: true},
                     totalPrice:    {type: Number, required: true},
                     items:         [{
-                                        id:        { type: mongoose.Types.ObjectId,
+                                        itemId:    { type: mongoose.Types.ObjectId,
                                                     required: true,
                                                     ref: 'Item'},
-                                        quantity:  {type: Number, required: true}
+                                        quantity:  {type: Number, required: true},
+                                        _id: false
                                     }]
                     },
     user_data:     {
