@@ -1,8 +1,9 @@
 const HttpError = require("../models/http-error");
+const Item = require("../models/item");
 const User = require("../models/user");
 const ObjectId = require('mongodb').ObjectId;
 
-
+//add title and price fields
 const updateUserCart = async (req, res, next) => {
     const userId = req.body.userId;
     const { itemId, quantity } = req.body;
@@ -72,12 +73,25 @@ const updateUserCart = async (req, res, next) => {
     }
 
     if(result.modifiedCount === 0) {
+        let existingItem;
         try {
+            existingItem = await Item.findById(itemId);
+        } catch (error) {
+            return next(new HttpError(
+                'Something went wrong while updating cart.' + error,
+                500
+            ));
+        }
+
+        console.log(existingItem);
+
+        try {
+            
             result = await existingUser.updateOne(
                 {
                     $push: { "cart.items" : {
                         itemId: obId,
-                        quantity: quantity
+                        quantity
                     }}/* ,
                     $set: {
                         "cart.totalItems": totalItems,
@@ -105,7 +119,9 @@ const getUserCart = async (req, res, next) => {
 
     let existingUser;
     try {
-        existingUser = await User.findById(userId).populate('items');
+        existingUser = await User.findById(userId)
+                                 .populate('cart.items.itemId')
+                                 .lean();
     } catch (error) {
         return next(new HttpError(
             'Fetching operation failed.' + error,
@@ -119,11 +135,17 @@ const getUserCart = async (req, res, next) => {
         404
     ));
 
-    const userCart = existingUser.cart;
-
+    const userCart = existingUser.cart.items.map(item => {
+        return {
+            title   : item.itemId.title,
+            price   : item.itemId.price,
+            itemId  : item.itemId._id.toString(),
+            quantity: item.quantity,
+        }
+    });
     console.log(userCart);
 
-    res.status(200).json(userCart);
+    res.status(200).json({items: userCart});
 };
 
 const removeItemFromCart = async (req, res, next) => {

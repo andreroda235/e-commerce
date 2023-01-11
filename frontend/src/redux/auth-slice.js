@@ -8,6 +8,8 @@ export const authInitialState = {
     isLoggedIn : false,
     admin   : true,
 };
+
+//login with user to check
 const initialState = loadState?.auth ? loadState.auth : authInitialState;
 
 const authSlice = createSlice({

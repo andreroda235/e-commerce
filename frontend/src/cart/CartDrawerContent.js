@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { toggleCart } from '../redux/ui-slice';
+
 import CartItem from './CartItem';
 import SlideAnimiationButton from '../shared/components/UIElements/Buttons/SlideAnimationButton';
 
 import classes from './CartDrawerContent.module.css';
 
 import cartIcon from '../assets/shopping_cart_icon_172223.png';
-import { toggleCart } from '../redux/ui-slice';
 
 
 const CartDrawerContent = () => {

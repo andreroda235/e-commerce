@@ -23,7 +23,7 @@ const store = configureStore({
 });
 
 store.subscribe(()=>{
-  console.log('saving... ' + JSON.stringify(store.getState()));
+  /* console.log('saving... ' + JSON.stringify(store.getState())); */
   localStorage.setItem('reduxState', JSON.stringify(store.getState()));
 });
 

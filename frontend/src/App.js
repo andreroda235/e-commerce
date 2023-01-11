@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
-import { CONTENT_TYPE_JSON, GET_USER_CART } from "./shared/util/request-config";
 import { useHttpClient } from "./shared/hooks/http-hook";
 import { loadCart, resetCart } from "./redux/cart-slice";
 import { login, logout } from "./redux/auth-slice";
@@ -18,6 +17,7 @@ import CartReviewPage from "./pages/CartReviewPage";
 import AuthenticationPage from "./pages/AuthenticationPage";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 import AdminItemPage from "./pages/AdminItemPage";
+import { API_GetUserCart } from "./shared/util/request-api";
 
 const App = () => {
   const { isLoading, sendRequest } = useHttpClient();
@@ -25,38 +25,25 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!auth.isLoggedIn){
-      if(auth.remember){
-        const header = {
-          ...CONTENT_TYPE_JSON,
-          Authorization: `Bearer ${auth.token}`
-        };
-        const data = {userId: auth.userId};
-        const request = {
-            ...GET_USER_CART(auth.userId),
-            ...header,
-            data
-        };
+    if(auth.isLoggedIn){
+      /* if(auth.remember){ */
+        const request = API_GetUserCart(auth.userId, auth.token);
         sendRequest(request).then(response => {
+          console.log(response.data.items);
           const data = response.data;
           if(data.auth === false){
             dispatch(logout());
             return;
           } else
             dispatch(login(auth.token, auth.userId));
-          if (data.cart.items.length > 0){
-            const cartData = {
-              items         : data.cart.items,
-              totalQuantity : data.cart.totalQuantity,
-              totalPrice    : data.cart.totalPrice
-            };
-            dispatch(loadCart(cartData));
+          if (data.items.length > 0){
+            dispatch(loadCart(data.items));
           } else 
             dispatch(resetCart());
         });
-      };
+      /* }; */
     }
-  });
+  }, [auth.isLoggedIn]);
 
   const publicRoutes = (
     <>

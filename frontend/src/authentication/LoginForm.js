@@ -50,6 +50,7 @@ const LoginForm = () => {
             headers: CONTENT_TYPE_JSON,
             data
         };
+        console.log(request);
         sendRequest(request).then((response) => {
             const payload = {
                 token  : response.data.token,

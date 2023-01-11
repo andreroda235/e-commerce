@@ -16,9 +16,18 @@ const cartSlice = createSlice({
         loadCart: (state, action) => {
             const loadedCart = action.payload;
 
-            state.items         = loadedCart.items;
-            state.totalQuantity = loadedCart.totalQuantity;
-            state.totalPrice    = loadedCart.totalPrice;
+            let totalQuantity = 0;
+            let totalPrice = 0;
+            for(const item of loadedCart){
+                totalQuantity += item.quantity;
+                totalPrice += item.price * item.quantity;
+            };
+
+            console.log(totalPrice + ' ' + totalQuantity);
+
+            state.items         = loadedCart;
+            state.totalQuantity = totalQuantity;
+            state.totalPrice    = totalPrice.toFixed(2);
         },
         resetCart: (state, action) => {
             state = cartInitialState;

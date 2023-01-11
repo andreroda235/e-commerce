@@ -11,19 +11,15 @@ export const useHttpClient = () => {
     //longer on the screen
     const activeHttpRequest = useRef([]);
 
-    const sendRequest = useCallback(async (requestConfig, additionalConfig) => {
+    const sendRequest = useCallback(async (requestConfig) => {
         setIsLoading(true);
         const httpAbortCtrl = new AbortController();
         activeHttpRequest.current.push(httpAbortCtrl);
 
-        let request = requestConfig;
-        if(additionalConfig){
-            request = {
+        let request =  {
                 ...requestConfig,
-                ...additionalConfig,
                 signal: httpAbortCtrl.signal
             }
-        }
 
         try {
             const response = await axios(request);
@@ -33,6 +29,7 @@ export const useHttpClient = () => {
             setIsLoading(false);
             return response;
         } catch (error) {
+            console.log(error);
             setError(error.response.data.message);
             setIsLoading(false)
             throw error;
